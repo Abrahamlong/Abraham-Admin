@@ -1,0 +1,220 @@
+﻿<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 引入公共的头文件和静态资源 -->
+<div th:replace="~{commons/common-static::common-static}"></div>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <!-- Main Content-->
+    <div class="main-container-wrapper">
+        <!-- Top bar area -->
+        <div th:replace="~{commons/common-top::common-top-bar}"></div>
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- Side Menu area -->
+            <div th:replace="~{commons/common-side::common-side-bar}"></div>
+
+            <!-- Mani Page -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+                        <!-- Start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex justify-content-between mb-30">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dotan</a></li>
+                                            <li class="breadcrumb-item active">Profile</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Profile -->
+                                <div class="card">
+                                    <div class="card-body profile-user-box">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="media">
+                                                    <span class="float-left m-2 mr-4"><img th:src="@{/img/member-img/contact-1.jpg}" style="height: 100px;" alt="" class="rounded-circle img-thumbnail"></span>
+                                                    <div class="media-body">
+
+                                                        <h5 class="mt-1 mb-1">Abraham Long</h5>
+                                                        <p class="font-13"> 超级管理员</p>
+
+                                                        <ul class="mb-0 list-inline text-light">
+                                                            <li class="list-inline-item mr-3">
+                                                                <h6 class="mb-1">66</h6>
+                                                                <p class="mb-0 font-13">博客数</p>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <h6 class="mb-1">8888</h6>
+                                                                <p class="mb-0 font-13">浏览量</p>
+                                                            </li>
+                                                        </ul>
+                                                    </div> <!-- end media-body-->
+                                                </div>
+                                            </div> <!-- end col-->
+
+                                            <div class="col-sm-4">
+                                                <div class="text-center mt-sm-0 mt-3 text-sm-right">
+                                                    <button type="button" class="btn btn-light">
+                                                        <i class="icon_pencil mr-1"></i> 编辑资料
+                                                    </button>
+                                                </div>
+                                            </div> <!-- end col-->
+                                        </div> <!-- end row -->
+
+                                    </div> <!-- end card-body/ profile-user-box-->
+                                </div>
+                                <!--end profile/ card -->
+                            </div> <!-- end col-->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div id="vertical-timeline" class="vertical-container light-timeline no-margins">
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon navy-bg">
+                                            <i class="fa fa-briefcase"></i>
+                                        </div>
+                                        <div class="row vertical-timeline-content">
+                                            <div class="col-sm-8">
+
+                                                <h4 class="alert btn-rounded btn-primary profile-title">个人信息</h4>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">ID</h6>
+                                                    <h6 class="profile-val">551206</h6>
+                                                </div>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">用户名</h6>
+                                                    <h6 class="profile-val">long</h6>
+                                                </div>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">昵称</h6>
+                                                    <h6 class="profile-val">abraham</h6>
+                                                </div>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">性别</h6>
+                                                    <h6 class="profile-val">女</h6>
+                                                </div>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">生日</h6>
+                                                    <h6 class="profile-val">2020-06-06</h6>
+                                                </div>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">邮箱</h6>
+                                                    <h6 class="profile-val">1486460308@qq.com</h6>
+                                                </div>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">个性签名</h6>
+                                                    <h6 class="profile-val">Html从开始到放弃</h6>
+                                                </div>
+                                            </div> <!-- end col-->
+                                            <div class="col-sm-4 text-sm-right">
+                                                <a href="#" class="btn btn-sm btn-primary">信息修改</a>
+                                            </div> <!-- end col-->
+                                        </div>
+
+                                    </div>
+
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon blue-bg">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                        <div class="row vertical-timeline-content">
+                                            <div class="col-sm-8">
+                                                <h4 class="alert btn-success profile-title">学历信息</h4>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">学校</h6>
+                                                    <h6 class="profile-val">清华大学</h6>
+                                                </div>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">专业</h6>
+                                                    <h6 class="profile-val">计算机</h6>
+                                                </div>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">毕业时间</h6>
+                                                    <h6 class="profile-val">2020-06-30</h6>
+                                                </div>
+                                            </div> <!-- end col-->
+
+                                            <div class="col-sm-4 text-sm-right">
+                                                <a href="#" class="btn btn-sm btn-success">学历修改</a>
+                                            </div> <!-- end col-->
+                                        </div>
+                                    </div>
+
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon lazur-bg">
+                                            <i class="fa fa-coffee"></i>
+                                        </div>
+                                        <div class="row vertical-timeline-content">
+                                            <div class="col-sm-8">
+                                                <h4 class="alert btn-rounded btn-info profile-title">工作信息</h4>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">工作单位</h6>
+                                                    <h6 class="profile-val">阿里巴巴</h6>
+                                                </div>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">岗位</h6>
+                                                    <h6 class="profile-val">专业删库</h6>
+                                                </div>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">工作时间</h6>
+                                                    <h6 class="profile-val">两年</h6>
+                                                </div>
+                                            </div> <!-- end col-->
+                                            <div class="col-sm-4 text-sm-right">
+                                                <a href="#" class="btn btn-sm btn-info">职位修改</a>
+                                            </div> <!-- end col-->
+                                        </div>
+                                    </div>
+
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon yellow-bg">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                        <div class="row vertical-timeline-content">
+                                            <div class="col-sm-8">
+                                                <h4 class="alert btn-rounded btn-dark profile-title">专业技能</h4>
+                                                <div class="profile-item">
+                                                    <h6 class="profile-key">擅长技能</h6>
+                                                    <h6 class="profile-val">Java、Python</h6>
+                                                </div>
+                                            </div> <!-- end col-->
+                                            <div class="col-sm-4 text-sm-right">
+                                                <a href="#" class="btn btn-sm btn-dark">技能更新</a>
+                                            </div> <!-- end col-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- end row -->
+                    </div>
+                    <!-- container -->
+                </div>
+
+                <!-- Footer Area -->
+                <div th:replace="~{commons/common-footer::common-footer-bar}"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- 引入公共的头文件和静态资源 -->
+    <div th:replace="~{commons/common-static::common-static}"></div>
+
+    <!-- markdown编辑器支持 -->
+    <link rel="stylesheet" th:href="@{/editor/css/editormd.min.css}">
+    <script th:src="@{/editor/editormd.min.js}"></script>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="lds-hourglass"></div>
+</div>
+
+<!-- Main Content-->
+<div class="main-container-wrapper">
+    <!-- Top bar area -->
+    <div th:replace="~{commons/common-top::common-top-bar}"></div>
+
+    <div class="container-fluid page-body-wrapper">
+        <!-- Side Menu area -->
+        <div th:replace="~{commons/common-side::common-side-bar}"></div>
+
+        <!-- Mani Page -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex justify-content-between mb-30">
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dotan</a></li>
+                                        <li class="breadcrumb-item active">Edit</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                    <!--博客创作-->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form class="forms-sample">
+                                        <div class="form-group">
+                                            <label for="exampleInputName1">博客标题</label>
+                                            <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="inputTypes" class="col-form-label">创作类型</label>
+                                                <select id="inputTypes" class="form-control">
+                                                    <option></option>
+                                                    <option>原创</option>
+                                                    <option>转载</option>
+                                                    <option>翻译</option>
+                                                    <option>总结</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="blogTypes" class="col-form-label">博客类型</label>
+                                                <select id="blogTypes" class="form-control">
+                                                    <option></option>
+                                                    <option>Spring</option>
+                                                    <option>MyBatis</option>
+                                                    <option>Java</option>
+                                                    <option>SpringMVC</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="picture" class="col-form-label">首图地址</label>
+                                                <select id="picture" class="form-control">
+                                                    <option></option>
+                                                    <option>/image/female</option>
+                                                    <option>/image/long</option>
+                                                    <option>/image/abraham</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="content">博客正文</label>
+                                            <div id="content" class="form-control">
+                                                <label>
+                                                    <textarea name="content" style="display: none;"></textarea>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="blogDetail">博客描述</label>
+                                            <textarea class="form-control" id="blogDetail" rows="4"></textarea>
+                                        </div>
+                                        <div class="form-group" style="text-align: center">
+                                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                            <button class="btn btn-light">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Footer Area -->
+            <div th:replace="~{commons/common-footer::common-footer-bar}"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // 初始化markdown编辑器
+    $(function() {
+        const testEditor = editormd("content", {
+            width: "100%",
+            height: 520,
+            syncScrolling: "single",
+            path: "/editor/lib/",
+            saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+            emoji: true,
+            tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+            flowChart : true,             // 开启流程图支持，默认关闭
+            sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭
+            placeholder : "请在这里编辑你的博客正文...",
+            // toolbarIcons : ""
+        });
+    });
+</script>
+
+</body>
+
+</html>

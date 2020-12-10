@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abraham.dao.UserDao">
+
+    <resultMap type="com.abraham.entity.User" id="UserMap">
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
+        <result property="birth" column="birth" jdbcType="TIMESTAMP"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="signature" column="signature" jdbcType="VARCHAR"/>
+        <result property="school" column="school" jdbcType="VARCHAR"/>
+        <result property="professional" column="professional" jdbcType="VARCHAR"/>
+        <result property="graduationTime" column="graduation_time" jdbcType="TIMESTAMP"/>
+        <result property="work" column="work" jdbcType="VARCHAR"/>
+        <result property="position" column="position" jdbcType="VARCHAR"/>
+        <result property="workTime" column="work_time" jdbcType="TIMESTAMP"/>
+        <result property="skills" column="skills" jdbcType="VARCHAR"/>
+        <result property="userStatus" column="user_status" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="finallyLoginTime" column="finally_login_time" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--根据用户ID查询单个-->
+    <select id="queryById" resultMap="UserMap">
+        select
+          user_id, username, password, nickname, avatar, gender, birth, email, signature, school, professional, graduation_time, work, position, work_time, skills, user_status, gmt_create, gmt_modified, finally_login_time, is_delete
+        from long_blog.user
+        where user_id = #{userId}
+    </select>
+
+    <!--根据用户名查询单个-->
+    <select id="queryByUsername" resultMap="UserMap">
+        select
+          user_id, username, password, nickname, avatar, gender, birth, email, signature, school, professional, graduation_time, work, position, work_time, skills, user_status, gmt_create, gmt_modified, finally_login_time, is_delete
+        from long_blog.user
+        where username = #{username}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserMap">
+        select
+          user_id, username, password, nickname, avatar, gender, birth, email, signature, school, professional, graduation_time, work, position, work_time, skills, user_status, gmt_create, gmt_modified, finally_login_time, is_delete
+        from long_blog.user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserMap">
+        select
+        user_id, username, password, nickname, avatar, gender, birth, email, signature, school, professional,
+        graduation_time, work, position, work_time, skills, user_status, gmt_create, gmt_modified, finally_login_time,
+        is_delete
+        from long_blog.user
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname = #{nickname}
+            </if>
+            <if test="avatar != null and avatar != ''">
+                and avatar = #{avatar}
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="birth != null">
+                and birth = #{birth}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="signature != null and signature != ''">
+                and signature = #{signature}
+            </if>
+            <if test="school != null and school != ''">
+                and school = #{school}
+            </if>
+            <if test="professional != null and professional != ''">
+                and professional = #{professional}
+            </if>
+            <if test="graduationTime != null">
+                and graduation_time = #{graduationTime}
+            </if>
+            <if test="work != null and work != ''">
+                and work = #{work}
+            </if>
+            <if test="position != null and position != ''">
+                and position = #{position}
+            </if>
+            <if test="workTime != null">
+                and work_time = #{workTime}
+            </if>
+            <if test="skills != null and skills != ''">
+                and skills = #{skills}
+            </if>
+            <if test="userStatus != null">
+                and user_status = #{userStatus}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="finallyLoginTime != null">
+                and finally_login_time = #{finallyLoginTime}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
+        insert into long_blog.user(username, password, nickname, avatar, gender, birth, email, signature, school, professional, graduation_time, work, position, work_time, skills, user_status, gmt_create, gmt_modified, finally_login_time, is_delete)
+        values (#{username}, #{password}, #{nickname}, #{avatar}, #{gender}, #{birth}, #{email}, #{signature}, #{school}, #{professional}, #{graduationTime}, #{work}, #{position}, #{workTime}, #{skills}, #{userStatus}, #{gmtCreate}, #{gmtModified}, #{finallyLoginTime}, #{isDelete})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="userId" useGeneratedKeys="true">
+        insert into long_blog.user(username, password, nickname, avatar, gender, birth, email, signature, school,
+        professional, graduation_time, work, position, work_time, skills, user_status, gmt_create, gmt_modified,
+        finally_login_time, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.username}, #{entity.password}, #{entity.nickname}, #{entity.avatar}, #{entity.gender},
+            #{entity.birth}, #{entity.email}, #{entity.signature}, #{entity.school}, #{entity.professional},
+            #{entity.graduationTime}, #{entity.work}, #{entity.position}, #{entity.workTime}, #{entity.skills},
+            #{entity.userStatus}, #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.finallyLoginTime},
+            #{entity.isDelete})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="userId" useGeneratedKeys="true">
+        insert into long_blog.user(username, password, nickname, avatar, gender, birth, email, signature, school,
+        professional, graduation_time, work, position, work_time, skills, user_status, gmt_create, gmt_modified,
+        finally_login_time, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.username}, #{entity.password}, #{entity.nickname}, #{entity.avatar}, #{entity.gender},
+            #{entity.birth}, #{entity.email}, #{entity.signature}, #{entity.school}, #{entity.professional},
+            #{entity.graduationTime}, #{entity.work}, #{entity.position}, #{entity.workTime}, #{entity.skills},
+            #{entity.userStatus}, #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.finallyLoginTime},
+            #{entity.isDelete})
+        </foreach>
+        on duplicate key update
+        username = values(username) , password = values(password) , nickname = values(nickname) , avatar =
+        values(avatar) , gender = values(gender) , birth = values(birth) , email = values(email) , signature =
+        values(signature) , school = values(school) , professional = values(professional) , graduation_time =
+        values(graduation_time) , work = values(work) , position = values(position) , work_time = values(work_time) ,
+        skills = values(skills) , user_status = values(user_status) , gmt_create = values(gmt_create) , gmt_modified =
+        values(gmt_modified) , finally_login_time = values(finally_login_time) , is_delete = values(is_delete)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update long_blog.user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="birth != null">
+                birth = #{birth},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="signature != null and signature != ''">
+                signature = #{signature},
+            </if>
+            <if test="school != null and school != ''">
+                school = #{school},
+            </if>
+            <if test="professional != null and professional != ''">
+                professional = #{professional},
+            </if>
+            <if test="graduationTime != null">
+                graduation_time = #{graduationTime},
+            </if>
+            <if test="work != null and work != ''">
+                work = #{work},
+            </if>
+            <if test="position != null and position != ''">
+                position = #{position},
+            </if>
+            <if test="workTime != null">
+                work_time = #{workTime},
+            </if>
+            <if test="skills != null and skills != ''">
+                skills = #{skills},
+            </if>
+            <if test="userStatus != null">
+                user_status = #{userStatus},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="finallyLoginTime != null">
+                finally_login_time = #{finallyLoginTime},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from long_blog.user where user_id = #{userId}
+    </delete>
+
+    <!--============================ 用户登录相关的mapper ==================================-->
+    <!--LoginVO实体映射-->
+    <resultMap type="com.abraham.vo.LoginUserVO" id="LoginUser">
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="userStatus" column="user_status" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="finallyLoginTime" column="finally_login_time" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+    <!--根据用户名、密码查询用户是否存在-->
+    <sql id="loginVo">
+
+    </sql>
+    <select id="queryByUsernamePassword" resultMap="LoginUser">
+        select user_id,username,password,user_status,gmt_create,gmt_modified,finally_login_time,is_delete
+        from long_blog.user
+        where username = #{username} and is_delete = 0;
+    </select>
+
+</mapper>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 引入公共的头文件和静态资源 -->
+<div th:replace="~{commons/common-static::common-static}"></div>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <div class="main-content- h-100vh bg-img register-page-2 dark-color-overlay " id="particles-js" style="background-image: url(/img/bg-img/bg-7.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="col-md-7 col-lg-6 mx-auto">
+                    <!-- Middle Box -->
+                    <div class="middle-box text-center">
+                        <h3 class="mb-50 text-white">Register Now!</h3>
+                        <!-- Form -->
+                        <form class="register-form" action="../user/login.html">
+                            <!-- Form Group -->
+                            <div class="form-group">
+                                <input type="text" class="form-control register" placeholder="Username" required="">
+                            </div>
+                            <!-- Form Group -->
+                            <div class="form-group">
+                                <input type="email" class="form-control register" placeholder="Email" required="">
+                            </div>
+                            <!-- Form Group -->
+                            <div class="form-group">
+                                <input type="text" class="form-control register" placeholder="Password" required="">
+                            </div>
+                            <label class="ckbox mb-20">
+                                <input type="checkbox">
+                                <span></span><span class="text-white">I agree to all Terms &amp; Conditions </span>
+                            </label>
+                            <button type="submit" class="btn btn-outline-success btn-block text-center text-white">Login</button>
+                            <span class="text-center mt-15 text-white mb-15 btn-block">Already have an account?</span>
+                            <a class="btn btn-outline-success btn-block text-white text-center" th:href="@{/admin/login}">Sign Up</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 引入公共的头文件和静态资源 -->
+<div th:replace="~{commons/common-static::common-static}"></div>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <!-- ======================================
+    ******* Page Wrapper Area Start **********
+    ======================================= -->
+    <div class="main-content- login-area-2 bg-img h-100vh dark-color-overlay" id="particles-js" style="background-image: url(/img/bg-img/bg-7.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="col-md-7 col-lg-6 mx-auto">
+                    <!-- Middle Box -->
+                    <div class="middle-box  text-center">
+                        <h3 class="mb-50 text-white">Sign In To Admin</h3>
+                        <!-- Form -->
+                        <form class="login-form" th:action="@{/admin/toLogin}" method="post">
+                            <!-- 用户名 -->
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="username" placeholder="User Name" required="">
+                            </div>
+                            <!-- 用户密码 -->
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="password" placeholder="Password" required="">
+                            </div>
+                            <button type="submit" class="btn btn-outline-success btn-block text-white mt-30">Login</button>
+
+                            <div class="d-flex justify-content-between mt-15">
+                                <label class="ckbox">
+                                    <input type="checkbox">
+                                    <span></span><small class="text-white">Keep me signed in </small>
+                                </label>
+                                <a class="forgot_pass text-white mb-10" th:href="@{/user/forget-password}"><small>Forgot password?</small></a>
+                            </div>
+                            <div class="login-icon mt-15 mb-15">
+                                <a href="#"><i class="ti-facebook"></i></a>
+                                <a class="info-color" href="#"><i class="ti-linkedin"></i></a>
+                                <a class="danger-color" href="#"><i class="ti-pinterest"></i></a>
+                                <a class="success-color" href="#"><i class="ti-dribbble"></i></a>
+                            </div>
+                            <p class="text-center text-white">Do not have an account?</p>
+                            <a class="btn btn-outline-primary text-white btn-block" th:href="@{/personal/register}">Create an account</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

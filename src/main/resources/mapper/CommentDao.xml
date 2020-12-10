@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abraham.dao.CommentDao">
+
+    <resultMap type="com.abraham.entity.Comment" id="CommentMap">
+        <result property="commentId" column="comment_id" jdbcType="INTEGER"/>
+        <result property="blogId" column="blog_id" jdbcType="INTEGER"/>
+        <result property="createUser" column="create_user" jdbcType="INTEGER"/>
+        <result property="commentContent" column="comment_content" jdbcType="VARCHAR"/>
+        <result property="parentCommentId" column="parent_comment_id" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CommentMap">
+        select
+          comment_id, blog_id, create_user, comment_content, parent_comment_id, gmt_create, gmt_modified, is_delete
+        from long_blog.comment
+        where comment_id = #{commentId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CommentMap">
+        select
+          comment_id, blog_id, create_user, comment_content, parent_comment_id, gmt_create, gmt_modified, is_delete
+        from long_blog.comment
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CommentMap">
+        select
+        comment_id, blog_id, create_user, comment_content, parent_comment_id, gmt_create, gmt_modified, is_delete
+        from long_blog.comment
+        <where>
+            <if test="commentId != null">
+                and comment_id = #{commentId}
+            </if>
+            <if test="blogId != null">
+                and blog_id = #{blogId}
+            </if>
+            <if test="createUser != null">
+                and create_user = #{createUser}
+            </if>
+            <if test="commentContent != null and commentContent != ''">
+                and comment_content = #{commentContent}
+            </if>
+            <if test="parentCommentId != null">
+                and parent_comment_id = #{parentCommentId}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="commentId" useGeneratedKeys="true">
+        insert into long_blog.comment(blog_id, create_user, comment_content, parent_comment_id, gmt_create, gmt_modified, is_delete)
+        values (#{blogId}, #{createUser}, #{commentContent}, #{parentCommentId}, #{gmtCreate}, #{gmtModified}, #{isDelete})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="commentId" useGeneratedKeys="true">
+        insert into long_blog.comment(blog_id, create_user, comment_content, parent_comment_id, gmt_create,
+        gmt_modified, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.blogId}, #{entity.createUser}, #{entity.commentContent}, #{entity.parentCommentId},
+            #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.isDelete})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="commentId" useGeneratedKeys="true">
+        insert into long_blog.comment(blog_id, create_user, comment_content, parent_comment_id, gmt_create,
+        gmt_modified, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.blogId}, #{entity.createUser}, #{entity.commentContent}, #{entity.parentCommentId},
+            #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.isDelete})
+        </foreach>
+        on duplicate key update
+        blog_id = values(blog_id) , create_user = values(create_user) , comment_content = values(comment_content) ,
+        parent_comment_id = values(parent_comment_id) , gmt_create = values(gmt_create) , gmt_modified =
+        values(gmt_modified) , is_delete = values(is_delete)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update long_blog.comment
+        <set>
+            <if test="blogId != null">
+                blog_id = #{blogId},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="commentContent != null and commentContent != ''">
+                comment_content = #{commentContent},
+            </if>
+            <if test="parentCommentId != null">
+                parent_comment_id = #{parentCommentId},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where comment_id = #{commentId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from long_blog.comment where comment_id = #{commentId}
+    </delete>
+
+</mapper>

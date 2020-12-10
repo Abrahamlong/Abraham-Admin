@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <!-- 引入公共的头文件和静态资源 -->
+        <div th:replace="~{commons/common-static::common-static}"></div>
+        <!-- 雪花下落JS -->
+        <script th:src="@{/js/bootstrap/private/jq.snow.js}"></script>
+    </head>
+
+    <body>
+        <!-- Preloader -->
+        <div id="preloader">
+            <div class="lds-hourglass"></div>
+        </div>
+
+        <!-- Error Page Area -->
+        <div class="error-page-area">
+            <!-- Error Content -->
+            <div class="error-content text-center py-5 px-4">
+                <!-- Error Thumb -->
+                <div class="error-thumb">
+                    <img th:src="@{/img/bg-img/1.png}" alt="">
+                </div>
+                <h2>哎呀！找不到此页面！</h2>
+                <p>抱歉，您要查找的页面不存在，已被删除或更改名称~</p>
+                <a class="btn btn-rounded btn-primary mt-30" th:href="@{/admin/index}">首页</a>
+            </div>
+        </div>
+
+        <script>
+            $(function(){
+                $.fn.snow({
+                    minSize: 5,		//雪花的最小尺寸
+                    maxSize: 40, 	//雪花的最大尺寸
+                    newOn: 200		//雪花出现的频率 这个数值越小雪花越多
+                });
+            });
+        </script>
+    </body>
+</html>

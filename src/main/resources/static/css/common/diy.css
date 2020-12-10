@@ -1,0 +1,56 @@
+.profile-item {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 14px 0;
+    color: #d48eb7;
+    /*font-size: 14px;*/
+    line-height: 24px;
+    font-weight: 400;
+}
+.profile-key{
+    width: 80px;
+    text-align: right;
+    float: left;
+    font-size: large;
+    font-weight: bold;
+    word-break: break-all;
+}
+.profile-val {
+    -webkit-box-flex: 1;
+    flex: 1;
+    padding-left: 18px;
+    word-break: break-all;
+}
+.profile-title{
+    width: 160px;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+.blog-a{
+    color: #0acf97;
+}
+
+.cherry-body{
+    /*max-width:100%;*/
+    background: white;
+    box-sizing: border-box;
+}
+.cherry-img{
+    width:50px;
+    height:50px;
+    margin-top:-5%;
+    opacity: 0.5;
+    position: fixed;
+    z-index: 99;
+    right:0px;
+    bottom:0
+    /*-webkit-transform:rotate3d(.6,1,.6,45deg);*/
+    /*-moz-transform:rotate3d(.6,1,.6,45deg);*/
+    /*-ms-transform:rotate3d(.6,1,.6,45deg);*/
+    /*-o-transform:rotate3d(.6,1,.6,45deg);*/
+    /*transform:rotate3d(.6,1,.6,45deg);*/
+}

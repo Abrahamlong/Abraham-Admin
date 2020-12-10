@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abraham.dao.MessageDao">
+
+    <resultMap type="com.abraham.entity.Message" id="MessageMap">
+        <result property="messageId" column="message_id" jdbcType="INTEGER"/>
+        <result property="createUser" column="create_user" jdbcType="INTEGER"/>
+        <result property="targetUser" column="target_user" jdbcType="INTEGER"/>
+        <result property="messageContent" column="message_content" jdbcType="VARCHAR"/>
+        <result property="parentMessageId" column="parent_message_id" jdbcType="INTEGER"/>
+        <result property="messageStatus" column="message_status" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MessageMap">
+        select
+          message_id, create_user, target_user, message_content, parent_message_id, message_status, gmt_create, gmt_modified, is_delete
+        from long_blog.message
+        where message_id = #{messageId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MessageMap">
+        select
+          message_id, create_user, target_user, message_content, parent_message_id, message_status, gmt_create, gmt_modified, is_delete
+        from long_blog.message
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MessageMap">
+        select
+        message_id, create_user, target_user, message_content, parent_message_id, message_status, gmt_create,
+        gmt_modified, is_delete
+        from long_blog.message
+        <where>
+            <if test="messageId != null">
+                and message_id = #{messageId}
+            </if>
+            <if test="createUser != null">
+                and create_user = #{createUser}
+            </if>
+            <if test="targetUser != null">
+                and target_user = #{targetUser}
+            </if>
+            <if test="messageContent != null and messageContent != ''">
+                and message_content = #{messageContent}
+            </if>
+            <if test="parentMessageId != null">
+                and parent_message_id = #{parentMessageId}
+            </if>
+            <if test="messageStatus != null">
+                and message_status = #{messageStatus}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="messageId" useGeneratedKeys="true">
+        insert into long_blog.message(create_user, target_user, message_content, parent_message_id, message_status, gmt_create, gmt_modified, is_delete)
+        values (#{createUser}, #{targetUser}, #{messageContent}, #{parentMessageId}, #{messageStatus}, #{gmtCreate}, #{gmtModified}, #{isDelete})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="messageId" useGeneratedKeys="true">
+        insert into long_blog.message(create_user, target_user, message_content, parent_message_id, message_status,
+        gmt_create, gmt_modified, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.createUser}, #{entity.targetUser}, #{entity.messageContent}, #{entity.parentMessageId},
+            #{entity.messageStatus}, #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.isDelete})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="messageId" useGeneratedKeys="true">
+        insert into long_blog.message(create_user, target_user, message_content, parent_message_id, message_status,
+        gmt_create, gmt_modified, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.createUser}, #{entity.targetUser}, #{entity.messageContent}, #{entity.parentMessageId},
+            #{entity.messageStatus}, #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.isDelete})
+        </foreach>
+        on duplicate key update
+        create_user = values(create_user) , target_user = values(target_user) , message_content =
+        values(message_content) , parent_message_id = values(parent_message_id) , message_status =
+        values(message_status) , gmt_create = values(gmt_create) , gmt_modified = values(gmt_modified) , is_delete =
+        values(is_delete)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update long_blog.message
+        <set>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="targetUser != null">
+                target_user = #{targetUser},
+            </if>
+            <if test="messageContent != null and messageContent != ''">
+                message_content = #{messageContent},
+            </if>
+            <if test="parentMessageId != null">
+                parent_message_id = #{parentMessageId},
+            </if>
+            <if test="messageStatus != null">
+                message_status = #{messageStatus},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where message_id = #{messageId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from long_blog.message where message_id = #{messageId}
+    </delete>
+
+</mapper>

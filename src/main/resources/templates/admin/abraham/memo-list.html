@@ -1,0 +1,207 @@
+﻿<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 引入公共的头文件和静态资源 -->
+<div th:replace="~{commons/common-static::common-static}"></div>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <!-- Main Content-->
+    <div class="main-container-wrapper">
+        <!-- Top bar area -->
+        <div th:replace="~{commons/common-top::common-top-bar}"></div>
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- Side Menu area -->
+            <div th:replace="~{commons/common-side::common-side-bar}"></div>
+
+            <!-- Mani Page -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <!-- Product Edit area Start -->
+                    <div class="container-fluid">
+                        <!-- Start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex justify-content-between mb-30">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item">亚伯拉罕</li>
+                                            <li class="breadcrumb-item active"><a th:href="@{/admin/abraham/memo}">备忘录</a></li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-12 mb-30">
+                                <div class="card bg-boxshadow full-height">
+                                    <div class="card-body">
+
+                                        <div class="">
+                                            <a class="btn btn-rounded btn-outline-info mb-2 mr-2" th:href="@{/admin/abraham/memo/toAdd}">新&nbsp;增</a>
+                                        </div>
+
+                                        <div class="table-responsive">
+                                            <table id="state-saving-datatable" class="table table-hover table-centered mb-0">
+                                                <thead class="primary-color">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th class="text-white">标题</th>
+                                                    <th class="text-white">内容</th>
+                                                    <th class="text-white">创建用户</th>
+                                                    <th class="text-white">创建时间</th>
+                                                    <th class="text-white">状态</th>
+                                                    <th class="text-white">操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="memo:${memos}">
+                                                    <td th:text="${memo.getMemoId()}">3214</td>
+                                                    <td th:text="${memo.getMemoTitle()}">Customer example</td>
+                                                    <td th:text="${memo.getMemoContent()}">$500.00</td>
+                                                    <td th:text="${memo.getCreateUser()}">03/04/2015</td>
+                                                    <td th:text="${memo.getGmtCreate()}">03/05/2015</td>
+                                                    <td>
+                                                        <span th:if="${memo.getMemoStatus() == 0}" class="badge badge-danger badge-pill">未完成</span>
+                                                        <span th:if="${memo.getMemoStatus() == 1}" class="badge badge-info badge-pill">已完成</span>
+                                                    </td>
+                                                    <td>
+                                                        <a class="action-icon" th:if="${memo.getMemoStatus() == 1}" th:onclick="'updateStatus(' + ${memo.getMemoId()} + ', 1)'">
+                                                            <i class="ti-thumb-down"></i>
+                                                        </a>
+                                                        <a class="action-icon-success" th:if="${memo.getMemoStatus() == 0}" th:onclick="'updateStatus(' + ${memo.getMemoId()} + ', 0)'">
+                                                            <i class="ti-thumb-up"></i>
+                                                        </a>
+                                                        <a th:href="@{'/admin/abraham/memo/toEdit/' + ${memo.getMemoId()}}" class="action-icon-primary"> <i class="zmdi zmdi-edit"></i></a>
+                                                        <a class="action-icon" th:onclick="'remove('+${memo.getMemoId()}+')'"> <i class="zmdi zmdi-delete"></i></a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="row justify-content-between" style="margin-top: 23px">
+                                            <div class="" style="margin-left: 30px">
+                                                <div class="dataTables_info" id="datatable-buttons_info" role="status" aria-live="polite">
+                                                    第 <span th:text="${memoPageInfo.pageNum}">1</span> 页 ( 第
+                                                    <span th:text="${memoPageInfo.startRow}">1</span> 到
+                                                    <span th:text="${memoPageInfo.endRow}">10</span> 条记录 )，共
+                                                    <span th:text="${memoPageInfo.pages}">10</span> 页 共
+                                                    <span th:text="${memoPageInfo.total}">66</span> 条记录
+                                                </div>
+                                            </div>
+                                            <div class="" style="margin-right: 40px">
+                                                <div class="dataTables_paginate paging_simple_numbers" id="datatable-buttons_paginate">
+                                                    <ul class="pagination pagination-rounded">
+                                                        <li class="paginate_button page-item previous" id="datatable-buttons_previous" th:if="${memoPageInfo.prePage != 0}">
+                                                            <a th:href="@{'?pageNum=' + ${memoPageInfo.prePage}}" aria-controls="datatable-buttons" class="page-link">
+                                                                <i class="arrow_carrot-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <th:block th:each="num : ${memoPageInfo.navigatepageNums}">
+                                                            <li th:class="${num == memoPageInfo.pageNum} ? 'paginate_button page-item active' : 'paginate_button page-item'">
+                                                                <a aria-controls="datatable-buttons" class="page-link" th:href="@{'?pageNum=' + ${num}}" th:text="${num}"></a>
+                                                            </li>
+                                                        </th:block>
+                                                        <li class="paginate_button page-item next" id="datatable-buttons_next" th:if="${memoPageInfo.nextPage != 0}">
+                                                            <a th:href="@{'?pageNum=' + ${memoPageInfo.nextPage}}" aria-controls="datatable-buttons"  class="page-link" >
+                                                                <i class="arrow_carrot-right"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                    </div>
+                </div>
+
+                <!-- Footer Area -->
+                <div th:replace="~{commons/common-footer::common-footer-bar}"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        /**
+         * 删除备忘录的单条记录
+         * @param id 要删除备忘录对应的Id
+         */
+        function remove(id){
+            Swal.fire({
+                title: "确定删除吗？",
+                text: "你将删除这条数据，删除之后就找不到了哦~",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonColor: "#33ff33",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "删除",
+                cancelButtonText: "取消"
+            }).then(function(flag) {
+                var config = {
+                    url: '/admin/abraham/memo/deleteMemo/' +id,
+                    type: "get",
+                    success: function (result) {
+                        if (result.code === 0) {
+                            flag.value && Swal.fire("删除成功", result.msg, "success").then(function (t) {
+                                // t.value && location.replace("/admin/abraham/memo");
+                                t.value && window.location.reload();
+                            });
+                        } else {
+                            flag.value && Swal.fire("删除失败", result.msg, "error")
+                        }
+                    }
+                };
+                $.ajax(config);
+            })
+        }
+
+        /**
+         * 更新备忘录状态
+         * @param memoId 对应要更新的备忘录Id
+         * @param status 对应要更新的状态值
+         */
+        function updateStatus(memoId, status) {
+            $.ajax({
+                url: '/admin/abraham/memo/updateStatus',
+                type: 'post',
+                data: {
+                    "memoId": memoId,
+                    "status": status
+                },
+                success: function (result) {
+                    if (result.code === 0) {
+                        toastr.success(result.msg, "", {
+                            positionClass: "toastr toast-top-center",
+                            containerId: "toast-top-center",
+                            showMethod: "slideDown",
+                            hideMethod: "slideUp",
+                            timeOut: 2e3
+                        });
+                        window.location.replace('/admin/abraham/memo');
+                    } else {
+                        toastr.error(result.msg, "", {
+                            positionClass: "toastr toast-top-center",
+                            containerId: "toast-top-center",
+                            showMethod: "slideDown",
+                            hideMethod: "slideUp",
+                            timeOut: 2e3
+                        })
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

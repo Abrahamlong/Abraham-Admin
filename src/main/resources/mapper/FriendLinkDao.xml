@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abraham.dao.FriendLinkDao">
+
+    <resultMap type="com.abraham.entity.FriendLink" id="FriendLinkMap">
+        <result property="friendLinkId" column="friend_link_id" jdbcType="INTEGER"/>
+        <result property="blogAddress" column="blog_address" jdbcType="VARCHAR"/>
+        <result property="blogName" column="blog_name" jdbcType="VARCHAR"/>
+        <result property="pictureAddress" column="picture_address" jdbcType="VARCHAR"/>
+        <result property="friendStatus" column="friend_status" jdbcType="INTEGER"/>
+        <result property="createUser" column="create_user" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="FriendLinkMap">
+        select
+          friend_link_id, blog_address, blog_name, picture_address, friend_status, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.friend_link
+        where friend_link_id = #{friendLinkId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="FriendLinkMap">
+        select
+          friend_link_id, blog_address, blog_name, picture_address, friend_status, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.friend_link
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="FriendLinkMap">
+        select
+        friend_link_id, blog_address, blog_name, picture_address, friend_status, create_user, gmt_create, gmt_modified,
+        is_delete
+        from long_blog.friend_link
+        <where>
+            <if test="friendLinkId != null">
+                and friend_link_id = #{friendLinkId}
+            </if>
+            <if test="blogAddress != null and blogAddress != ''">
+                and blog_address = #{blogAddress}
+            </if>
+            <if test="blogName != null and blogName != ''">
+                and blog_name = #{blogName}
+            </if>
+            <if test="pictureAddress != null and pictureAddress != ''">
+                and picture_address = #{pictureAddress}
+            </if>
+            <if test="friendStatus != null">
+                and friend_status = #{friendStatus}
+            </if>
+            <if test="createUser != null">
+                and create_user = #{createUser}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="friendLinkId" useGeneratedKeys="true">
+        insert into long_blog.friend_link(blog_address, blog_name, picture_address, friend_status, create_user, gmt_create, gmt_modified, is_delete)
+        values (#{blogAddress}, #{blogName}, #{pictureAddress}, #{friendStatus}, #{createUser}, #{gmtCreate}, #{gmtModified}, #{isDelete})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="friendLinkId" useGeneratedKeys="true">
+        insert into long_blog.friend_link(blog_address, blog_name, picture_address, friend_status, create_user,
+        gmt_create, gmt_modified, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.blogAddress}, #{entity.blogName}, #{entity.pictureAddress}, #{entity.friendStatus},
+            #{entity.createUser}, #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.isDelete})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="friendLinkId" useGeneratedKeys="true">
+        insert into long_blog.friend_link(blog_address, blog_name, picture_address, friend_status, create_user,
+        gmt_create, gmt_modified, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.blogAddress}, #{entity.blogName}, #{entity.pictureAddress}, #{entity.friendStatus},
+            #{entity.createUser}, #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.isDelete})
+        </foreach>
+        on duplicate key update
+        blog_address = values(blog_address) , blog_name = values(blog_name) , picture_address = values(picture_address)
+        , friend_status = values(friend_status) , create_user = values(create_user) , gmt_create = values(gmt_create) ,
+        gmt_modified = values(gmt_modified) , is_delete = values(is_delete)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update long_blog.friend_link
+        <set>
+            <if test="blogAddress != null and blogAddress != ''">
+                blog_address = #{blogAddress},
+            </if>
+            <if test="blogName != null and blogName != ''">
+                blog_name = #{blogName},
+            </if>
+            <if test="pictureAddress != null and pictureAddress != ''">
+                picture_address = #{pictureAddress},
+            </if>
+            <if test="friendStatus != null">
+                friend_status = #{friendStatus},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where friend_link_id = #{friendLinkId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from long_blog.friend_link where friend_link_id = #{friendLinkId}
+    </delete>
+
+</mapper>

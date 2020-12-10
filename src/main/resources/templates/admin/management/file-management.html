@@ -1,0 +1,218 @@
+﻿<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 引入公共的头文件和静态资源 -->
+<div th:replace="~{commons/common-static::common-static}"></div>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <!-- Main Content-->
+    <div class="main-container-wrapper">
+        <!-- Top bar area -->
+        <div th:replace="~{commons/common-top::common-top-bar}"></div>
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- Side Menu area -->
+            <div th:replace="~{commons/common-side::common-side-bar}"></div>
+
+            <!-- Mani Page -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <!-- File upload area Start -->
+                    <div class="container-fluid">
+                        <!-- Start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex justify-content-between mb-30">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dotan</a></li>
+                                            <li class="breadcrumb-item active">File Upload</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <ul class="nav nav-pills navtab-bg nav-justified">
+                                            <li class="nav-item">
+                                                <a href="#home1" data-toggle="tab" aria-expanded="false" class="nav-link mb-3">
+                                                    我的上传
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#profile1" data-toggle="tab" aria-expanded="true" class="nav-link active mb-3">
+                                                    最近上传/下载
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#messages1" data-toggle="tab" aria-expanded="false" class="nav-link mb-3">
+                                                    我的下载
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane" id="home1">
+                                                <div class="">
+                                                    <button type="submit" class="btn btn-rounded btn-outline-info mb-2 mr-2">文件上传</button>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table class="table layout-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="text-black">序号</th>
+                                                            <th class="text-black">文件名称</th>
+                                                            <th class="text-black">所属类别</th>
+                                                            <th class="text-black">资源标签</th>
+                                                            <th class="text-black">文件大小</th>
+                                                            <th class="text-black">上传时间</th>
+                                                            <th class="text-black">操作</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Nigam</td>
+                                                            <td>Eichmann</td>
+                                                            <td>@Sonu</td>
+                                                            <td>@Sonu</td>
+                                                            <td>@Sonu</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-outline-warning btn-sm mb-2 mr-2">编辑</button>
+                                                                <button type="button" class="btn btn-outline-danger btn-sm mb-2 mr-2">删除</button>
+                                                                <button type="button" class="btn btn-outline-secondary btn-sm mb-2 mr-2">下载</button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>Deshmukh</td>
+                                                            <td>Prohaska</td>
+                                                            <td>Prohaska</td>
+                                                            <td>Prohaska</td>
+                                                            <td>@Genelia</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-outline-warning btn-sm mb-2 mr-2">编辑</button>
+                                                                <button type="button" class="btn btn-outline-danger btn-sm mb-2 mr-2">删除</button>
+                                                                <button type="button" class="btn btn-outline-secondary btn-sm mb-2 mr-2">下载</button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>Roshan</td>
+                                                            <td>Rogahn</td>
+                                                            <td>Rogahn</td>
+                                                            <td>Rogahn</td>
+                                                            <td>@Hritik</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-outline-warning btn-sm mb-2 mr-2">编辑</button>
+                                                                <button type="button" class="btn btn-outline-danger btn-sm mb-2 mr-2">删除</button>
+                                                                <button type="button" class="btn btn-outline-secondary btn-sm mb-2 mr-2">下载</button>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane show active" id="profile1">
+                                                <div class="table-responsive">
+                                                    <table class="table layout-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="text-black">#</th>
+                                                            <th class="text-black">First Name</th>
+                                                            <th class="text-black">Last Name</th>
+                                                            <th class="text-black">Username</th>
+                                                            <th class="text-black">File Status</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Nigam</td>
+                                                            <td>Eichmann</td>
+                                                            <td>@Sonu</td>
+                                                            <td><span class="badge badge-dark badge-pill">上传</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>Deshmukh</td>
+                                                            <td>Prohaska</td>
+                                                            <td>@Genelia</td>
+                                                            <td><span class="badge badge-success badge-pill">下载</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>Roshan</td>
+                                                            <td>Rogahn</td>
+                                                            <td>@Hritik</td>
+                                                            <td><span class="badge badge-dark badge-pill">上传</span></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="messages1">
+                                                <div class="table-responsive">
+                                                    <table class="table layout-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="text-black">#</th>
+                                                            <th class="text-black">First Name</th>
+                                                            <th class="text-black">Last Name</th>
+                                                            <th class="text-black">Username</th>
+                                                            <th class="text-black">Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Nigam</td>
+                                                            <td>Eichmann</td>
+                                                            <td>@Sonu</td>
+                                                            <td><button type="button" class="btn btn-outline-danger btn-sm mb-2 mr-2">删除</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>Deshmukh</td>
+                                                            <td>Prohaska</td>
+                                                            <td>@Genelia</td>
+                                                            <td><button type="button" class="btn btn-outline-danger btn-sm mb-2 mr-2">删除</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>Roshan</td>
+                                                            <td>Rogahn</td>
+                                                            <td>@Hritik</td>
+                                                            <td><button type="button" class="btn btn-outline-danger btn-sm mb-2 mr-2">删除</button></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end card-->
+                            </div> <!-- end col -->
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Footer Area -->
+                <div th:replace="~{commons/common-footer::common-footer-bar}"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

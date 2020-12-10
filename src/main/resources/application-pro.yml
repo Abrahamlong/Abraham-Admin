@@ -1,0 +1,28 @@
+# 启动端口
+server:
+  port: 8088
+
+# 配置数据源
+spring:
+  datasource:
+    username: blog
+    password: 123456
+    url: jdbc:mysql://139.196.202.147:3306/blog?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# 配置MyBatis
+mybatis:
+  type-aliases-package: com.abraham.entity
+  mapper-locations: classpath:mapper/*.xml
+
+logging:
+  level:
+    root: warn
+    com.abraham: info
+  file:
+    name: log/blog-dev.log
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: false
+  support-methods-arguments: true

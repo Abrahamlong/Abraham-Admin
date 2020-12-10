@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abraham.dao.BlogDao">
+
+    <!--博客表完整字段映射-->
+    <resultMap type="com.abraham.entity.Blog" id="BlogMap">
+        <result property="blogId" column="blog_id" jdbcType="INTEGER"/>
+        <result property="blogTitle" column="blog_title" jdbcType="VARCHAR"/>
+        <result property="creationType" column="creation_type" jdbcType="INTEGER"/>
+        <result property="typeId" column="type_id" jdbcType="INTEGER"/>
+        <result property="firstPicture" column="first_picture" jdbcType="VARCHAR"/>
+        <result property="blogContent" column="blog_content" jdbcType="VARCHAR"/>
+        <result property="blogDescription" column="blog_description" jdbcType="VARCHAR"/>
+        <result property="label" column="label" jdbcType="VARCHAR"/>
+        <result property="published" column="is_published" jdbcType="INTEGER"/>
+        <result property="commendable" column="is_commendable" jdbcType="INTEGER"/>
+        <result property="recommend" column="is_recommend" jdbcType="INTEGER"/>
+        <result property="viewsCount" column="views_count" jdbcType="INTEGER"/>
+        <result property="commentCount" column="comment_count" jdbcType="INTEGER"/>
+        <result property="collectCount" column="collect_count" jdbcType="INTEGER"/>
+        <result property="commendableCount" column="commendable_count" jdbcType="INTEGER"/>
+        <result property="createUser" column="create_user" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--后台博客管理字段映射-->
+    <resultMap type="com.abraham.vo.BlogManagementVO" id="BlogManagement">
+        <result property="blogId" column="blog_id" jdbcType="INTEGER"/>
+        <result property="blogTitle" column="blog_title" jdbcType="VARCHAR"/>
+        <result property="creationType" column="creation_type" jdbcType="INTEGER"/>
+        <result property="typeId" column="type_id" jdbcType="INTEGER"/>
+        <result property="firstPicture" column="first_picture" jdbcType="VARCHAR"/>
+        <result property="blogContent" column="blog_content" jdbcType="VARCHAR"/>
+        <result property="blogDescription" column="blog_description" jdbcType="VARCHAR"/>
+        <result property="published" column="is_published" jdbcType="INTEGER"/>
+        <result property="commendable" column="is_commendable" jdbcType="INTEGER"/>
+        <result property="recommend" column="is_recommend" jdbcType="INTEGER"/>
+        <result property="createUser" column="create_user" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="VARCHAR"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="VARCHAR"/>
+        <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--根据博客Id查询单个(后台博客管理）-->
+    <select id="queryById" resultMap="BlogManagement">
+        select
+            blog_id, blog_title, creation_type, type_id, first_picture, blog_content, blog_description, is_published,
+            is_commendable, is_recommend, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.blog
+        where blog_id = #{blogId} and is_delete = 0
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BlogMap">
+        select
+            blog_id, blog_title, creation_type, type_id, first_picture, blog_content, blog_description, label, is_published, is_commendable, is_recommend, views_count, comment_count, collect_count, commendable_count, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.blog
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过BlogManagementVO实体作为筛选条件查询(后台博客管理)-->
+    <select id="queryAllByCondition" resultMap="BlogManagement">
+        select
+            blog_id, blog_title, creation_type, type_id, first_picture, blog_content, blog_description, is_published,
+            is_commendable, is_recommend, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.blog
+        <where>
+            <if test="blogId != null">
+                and blog_id = #{blogId}
+            </if>
+            <if test="blogTitle != null and blogTitle != ''">
+                and blog_title = #{blogTitle}
+            </if>
+            <if test="creationType != null">
+                and creation_type = #{creationType}
+            </if>
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="firstPicture != null and firstPicture != ''">
+                and first_picture = #{firstPicture}
+            </if>
+            <if test="blogContent != null and blogContent != ''">
+                and blog_content = #{blogContent}
+            </if>
+            <if test="blogDescription != null and blogDescription != ''">
+                and blog_description = #{blogDescription}
+            </if>
+            <if test="published != null">
+                and is_published = #{isPublished}
+            </if>
+            <if test="commendable != null">
+                and is_commendable = #{isCommendable}
+            </if>
+            <if test="recommend != null">
+                and is_recommend = #{isRecommend}
+            </if>
+            <if test="createUser != null">
+                and create_user = #{createUser}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="true">
+                and is_delete = 0
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="blogId" useGeneratedKeys="true">
+        insert into long_blog.blog(blog_title, creation_type, type_id, first_picture, blog_content, blog_description, label, is_published, is_commendable, is_recommend, views_count, comment_count, collect_count, commendable_count, create_user, gmt_create, gmt_modified, is_delete)
+        values (#{blogTitle}, #{creationType}, #{typeId}, #{firstPicture}, #{blogContent}, #{blogDescription}, #{label}, #{isPublished}, #{isCommendable}, #{isRecommend}, #{viewsCount}, #{commentCount}, #{collectCount}, #{commendableCount}, #{createUser}, #{gmtCreate}, #{gmtModified}, #{isDelete})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="blogId" useGeneratedKeys="true">
+        insert into long_blog.blog(blog_title, creation_type, type_id, first_picture, blog_content, blog_description,
+        label, is_published, is_commendable, is_recommend, views_count, comment_count, collect_count, commendable_count,
+        create_user, gmt_create, gmt_modified, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.blogTitle}, #{entity.creationType}, #{entity.typeId}, #{entity.firstPicture},
+            #{entity.blogContent}, #{entity.blogDescription}, #{entity.label}, #{entity.isPublished},
+            #{entity.isCommendable}, #{entity.isRecommend}, #{entity.viewsCount}, #{entity.commentCount},
+            #{entity.collectCount}, #{entity.commendableCount}, #{entity.createUser}, #{entity.gmtCreate},
+            #{entity.gmtModified}, #{entity.isDelete})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="blogId" useGeneratedKeys="true">
+        insert into long_blog.blog(blog_title, creation_type, type_id, first_picture, blog_content, blog_description,
+        label, is_published, is_commendable, is_recommend, views_count, comment_count, collect_count, commendable_count,
+        create_user, gmt_create, gmt_modified, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.blogTitle}, #{entity.creationType}, #{entity.typeId}, #{entity.firstPicture},
+            #{entity.blogContent}, #{entity.blogDescription}, #{entity.label}, #{entity.isPublished},
+            #{entity.isCommendable}, #{entity.isRecommend}, #{entity.viewsCount}, #{entity.commentCount},
+            #{entity.collectCount}, #{entity.commendableCount}, #{entity.createUser}, #{entity.gmtCreate},
+            #{entity.gmtModified}, #{entity.isDelete})
+        </foreach>
+        on duplicate key update
+        blog_title = values(blog_title) , creation_type = values(creation_type) , type_id = values(type_id) ,
+        first_picture = values(first_picture) , blog_content = values(blog_content) , blog_description =
+        values(blog_description) , label = values(label) , is_published = values(is_published) , is_commendable =
+        values(is_commendable) , is_recommend = values(is_recommend) , views_count = values(views_count) , comment_count
+        = values(comment_count) , collect_count = values(collect_count) , commendable_count = values(commendable_count)
+        , create_user = values(create_user) , gmt_create = values(gmt_create) , gmt_modified = values(gmt_modified) ,
+        is_delete = values(is_delete)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update long_blog.blog
+        <set>
+            <if test="blogTitle != null and blogTitle != ''">
+                blog_title = #{blogTitle},
+            </if>
+            <if test="creationType != null">
+                creation_type = #{creationType},
+            </if>
+            <if test="typeId != null">
+                type_id = #{typeId},
+            </if>
+            <if test="firstPicture != null and firstPicture != ''">
+                first_picture = #{firstPicture},
+            </if>
+            <if test="blogContent != null and blogContent != ''">
+                blog_content = #{blogContent},
+            </if>
+            <if test="blogDescription != null and blogDescription != ''">
+                blog_description = #{blogDescription},
+            </if>
+            <if test="label != null and label != ''">
+                label = #{label},
+            </if>
+            <if test="isPublished != null">
+                is_published = #{isPublished},
+            </if>
+            <if test="isCommendable != null">
+                is_commendable = #{isCommendable},
+            </if>
+            <if test="isRecommend != null">
+                is_recommend = #{isRecommend},
+            </if>
+            <if test="viewsCount != null">
+                views_count = #{viewsCount},
+            </if>
+            <if test="commentCount != null">
+                comment_count = #{commentCount},
+            </if>
+            <if test="collectCount != null">
+                collect_count = #{collectCount},
+            </if>
+            <if test="commendableCount != null">
+                commendable_count = #{commendableCount},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where blog_id = #{blogId}
+    </update>
+
+    <!--通过主键删除-->
+    <update id="deleteById">
+        update long_blog.blog set is_delete = 1 where blog_id = #{blogId}
+    </update>
+
+</mapper>

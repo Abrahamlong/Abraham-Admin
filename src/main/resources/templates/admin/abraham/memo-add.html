@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 引入公共的头文件和静态资源 -->
+<div th:replace="~{commons/common-static::common-static}"></div>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="lds-hourglass"></div>
+</div>
+
+<!-- Main Content-->
+<div class="main-container-wrapper">
+    <!-- Top bar area -->
+    <div th:replace="~{commons/common-top::common-top-bar}"></div>
+
+    <div class="container-fluid page-body-wrapper">
+        <!-- Side Menu area -->
+        <div th:replace="~{commons/common-side::common-side-bar}"></div>
+
+        <!-- Mani Page -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex justify-content-between mb-30">
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item">亚伯拉罕</li>
+                                        <li class="breadcrumb-item"><a th:href="@{/admin/abraham/memo}">备忘录</a></li>
+                                        <li class="breadcrumb-item active">新增</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+                    <!-- 博客类型新增 -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="text-center" style="margin-top: 20px">
+                                        <h4 class="modal-title">新增备忘录</h4>
+                                        <hr/>
+                                    </div>
+                                    <form id="memoAdd" class="forms-sample" method="post">
+                                        <div class="form-group">
+                                            <label for="memoTitle">备忘录标题</label>
+                                            <input id="memoTitle" class="form-control" name="memoTitle" minlength="2" type="text" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="memoContent">内容</label>
+                                            <textarea class="form-control" id="memoContent" name="memoContent" rows="5"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="createUser">创建用户</label>
+                                            <input id="createUser" class="form-control" type="text" name="createUser" required readonly th:value="${createUser}"/>
+                                        </div>
+                                        <div class="form-group form-line">
+                                            <label class="col-form-label">备忘录状态</label>
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="memoStatus" name="memoStatus" value="1">
+                                                <label class="custom-control-label" for="memoStatus">完成</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group text-center">
+                                            <button id="pos-top-center" type="submit" class="btn btn-primary mr-2">提&nbsp;&nbsp;交</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="cancel()">取&nbsp;&nbsp;消</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Footer Area -->
+            <div th:replace="~{commons/common-footer::common-footer-bar}"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#memoAdd').validate({
+        submitHandler: function (form) {
+            add();
+        }
+    });
+
+    /**
+     * 提交新增备忘录
+     */
+    function add() {
+        const memoTitle = $("#memoTitle").val();
+        const memoContent = $("#memoContent").val();
+        const createUser = $("#createUser").val();
+        let memoStatus = 0;
+        if ($("#memoStatus").prop('checked')){
+            memoStatus = 1;
+        }
+        $.ajax({
+            url: '/admin/abraham/memo/add',
+            type: 'post',
+            data: {
+                "memoTitle": memoTitle,
+                "memoContent": memoContent,
+                "createUser": createUser,
+                "memoStatus": memoStatus
+            },
+            success: function (result) {
+                if (result.code === 0) {
+                    Swal.fire({
+                        title: result.msg,
+                        text: "你是否继续新增备忘录？",
+                        type: "success",
+                        showCancelButton: !0,
+                        confirmButtonColor: "#33ff33",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "不了，返回上一级",
+                        cancelButtonText: "继续新增"
+                    }).then(function (t) {
+                        t.value && location.replace("/admin/abraham/memo");
+                    });
+                } else {
+                    toastr.error(result.msg, "", {
+                        positionClass: "toastr toast-top-center",
+                        containerId: "toast-top-center",
+                        showMethod: "slideDown",
+                        hideMethod: "slideUp",
+                        timeOut: 2e3
+                    })
+                }
+            }
+        });
+    }
+
+    /**
+     * 取消窗口，重定向到备忘录列表页面
+     */
+    function cancel() {
+        window.location.replace('/admin/abraham/memo');
+    }
+</script>
+</body>
+
+</html>

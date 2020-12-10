@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abraham.dao.MemoDao">
+
+    <resultMap type="com.abraham.entity.Memo" id="MemoMap">
+        <result property="memoId" column="memo_id" jdbcType="INTEGER"/>
+        <result property="memoTitle" column="memo_title" jdbcType="VARCHAR"/>
+        <result property="memoContent" column="memo_content" jdbcType="VARCHAR"/>
+        <result property="memoStatus" column="memo_status" jdbcType="INTEGER"/>
+        <result property="createUser" column="create_user" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="VARCHAR"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="VARCHAR"/>
+        <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--根据备忘录Id查询单个-->
+    <select id="queryById" resultMap="MemoMap">
+        select
+          memo_id, memo_title, memo_content, memo_status, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.memo
+        where memo_id = #{memoId}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MemoMap">
+        select
+        memo_id, memo_title, memo_content, memo_status, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.memo
+        <where>
+            <if test="memoId != null">
+                and memo_id = #{memoId}
+            </if>
+            <if test="memoTitle != null and memoTitle != ''">
+                and memo_title = #{memoTitle}
+            </if>
+            <if test="memoContent != null and memoContent != ''">
+                and memo_content = #{memoContent}
+            </if>
+            <if test="memoStatus != null">
+                and memo_status = #{memoStatus}
+            </if>
+            <if test="createUser != null">
+                and create_user = #{createUser}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="true">
+                and is_delete = 0
+            </if>
+        </where>
+        order by memo_status asc,memo_id desc
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="memoId" useGeneratedKeys="true">
+        insert into long_blog.memo(memo_title, memo_content, memo_status, create_user, gmt_create, gmt_modified, is_delete)
+        values (#{memoTitle}, #{memoContent}, #{memoStatus}, #{createUser}, #{gmtCreate}, #{gmtModified}, #{deleteFlag})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update long_blog.memo
+        <set>
+            <if test="memoTitle != null and memoTitle != ''">
+                memo_title = #{memoTitle},
+            </if>
+            <if test="memoContent != null and memoContent != ''">
+                memo_content = #{memoContent},
+            </if>
+            <if test="memoStatus != null">
+                memo_status = #{memoStatus},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+        </set>
+        where memo_id = #{memoId}
+    </update>
+
+    <!--通过主键删除-->
+    <update id="deleteById">
+        update long_blog.memo set is_delete = 1 where memo_id = #{memoId};
+    </update>
+
+</mapper>

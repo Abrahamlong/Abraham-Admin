@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abraham.dao.TodoDao">
+
+    <resultMap type="com.abraham.entity.Todo" id="TodoMap">
+        <result property="todoId" column="todo_id" jdbcType="INTEGER"/>
+        <result property="todoTitle" column="todo_title" jdbcType="VARCHAR"/>
+        <result property="todoDescription" column="todo_description" jdbcType="VARCHAR"/>
+        <result property="todoStatus" column="todo_status" jdbcType="INTEGER"/>
+        <result property="deadline" column="deadline" jdbcType="TIMESTAMP"/>
+        <result property="createUser" column="create_user" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TodoMap">
+        select
+          todo_id, todo_title, todo_description, todo_status, deadline, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.todo
+        where todo_id = #{todoId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TodoMap">
+        select
+          todo_id, todo_title, todo_description, todo_status, deadline, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.todo
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TodoMap">
+        select
+        todo_id, todo_title, todo_description, todo_status, deadline, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.todo
+        <where>
+            <if test="todoId != null">
+                and todo_id = #{todoId}
+            </if>
+            <if test="todoTitle != null and todoTitle != ''">
+                and todo_title = #{todoTitle}
+            </if>
+            <if test="todoDescription != null and todoDescription != ''">
+                and todo_description = #{todoDescription}
+            </if>
+            <if test="todoStatus != null">
+                and todo_status = #{todoStatus}
+            </if>
+            <if test="deadline != null">
+                and deadline = #{deadline}
+            </if>
+            <if test="createUser != null">
+                and create_user = #{createUser}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="todoId" useGeneratedKeys="true">
+        insert into long_blog.todo(todo_title, todo_description, todo_status, deadline, create_user, gmt_create, gmt_modified, is_delete)
+        values (#{todoTitle}, #{todoDescription}, #{todoStatus}, #{deadline}, #{createUser}, #{gmtCreate}, #{gmtModified}, #{isDelete})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="todoId" useGeneratedKeys="true">
+        insert into long_blog.todo(todo_title, todo_description, todo_status, deadline, create_user, gmt_create,
+        gmt_modified, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.todoTitle}, #{entity.todoDescription}, #{entity.todoStatus}, #{entity.deadline},
+            #{entity.createUser}, #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.isDelete})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="todoId" useGeneratedKeys="true">
+        insert into long_blog.todo(todo_title, todo_description, todo_status, deadline, create_user, gmt_create,
+        gmt_modified, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.todoTitle}, #{entity.todoDescription}, #{entity.todoStatus}, #{entity.deadline},
+            #{entity.createUser}, #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.isDelete})
+        </foreach>
+        on duplicate key update
+        todo_title = values(todo_title) , todo_description = values(todo_description) , todo_status =
+        values(todo_status) , deadline = values(deadline) , create_user = values(create_user) , gmt_create =
+        values(gmt_create) , gmt_modified = values(gmt_modified) , is_delete = values(is_delete)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update long_blog.todo
+        <set>
+            <if test="todoTitle != null and todoTitle != ''">
+                todo_title = #{todoTitle},
+            </if>
+            <if test="todoDescription != null and todoDescription != ''">
+                todo_description = #{todoDescription},
+            </if>
+            <if test="todoStatus != null">
+                todo_status = #{todoStatus},
+            </if>
+            <if test="deadline != null">
+                deadline = #{deadline},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where todo_id = #{todoId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from long_blog.todo where todo_id = #{todoId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,165 @@
+﻿<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 引入公共的头文件和静态资源 -->
+<div th:replace="~{commons/common-static::common-static}"></div>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <!-- Main Content-->
+    <div class="main-container-wrapper">
+        <!-- Top bar area -->
+        <div th:replace="~{commons/common-top::common-top-bar}"></div>
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- Side Menu area -->
+            <div th:replace="~{commons/common-side::common-side-bar}"></div>
+
+            <!-- Mani Page -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <!-- Product Edit area Start -->
+                    <div class="container-fluid">
+                        <!-- Start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex justify-content-between mb-30">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dotan</a></li>
+                                            <li class="breadcrumb-item active">Product Details</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-5">
+                                                <!-- Product image -->
+                                                <a href="javascript: void(0);" class="text-center d-block mb-4">
+                                                    <img th:src="@{/img/shop-img/10.jpg}" class="img-fluid" alt="Product" />
+                                                </a>
+
+                                                <div class="d-lg-flex d-none justify-content-center">
+                                                    <a href="javascript: void(0);">
+                                                        <img th:src="@{/img/shop-img/9.jpg}" class="img-fluid img-thumbnail p-2" style="max-width: 80px;" alt="Product" />
+                                                    </a>
+                                                    <a href="javascript: void(0);" class="ml-2">
+                                                        <img th:src="@{/img/shop-img/7.jpg}" class="img-fluid img-thumbnail p-2" style="max-width: 80px;" alt="Product" />
+                                                    </a>
+                                                    <a href="javascript: void(0);" class="ml-2">
+                                                        <img th:src="@{/img/shop-img/6.jpg}" class="img-fluid img-thumbnail p-2" style="max-width: 80px;" alt="Product" />
+                                                    </a>
+                                                </div>
+                                            </div> <!-- end col -->
+                                            <div class="col-lg-6">
+                                                <form class="pl-lg-4">
+                                                    <!-- Product title -->
+                                                    <h3 class="mt-0 font-24">Reebok Royal Bag</h3>
+                                                    <p class="mb-1 font-16">Added Date: 09/05/2019</p>
+                                                    <p class="font-16">
+                                                        <span class="text-warning zmdi zmdi-star-outline"></span>
+                                                        <span class="text-warning zmdi zmdi-star-outline"></span>
+                                                        <span class="text-warning zmdi zmdi-star-outline"></span>
+                                                        <span class="text-warning zmdi zmdi-star-outline"></span>
+                                                        <span class="text-warning zmdi zmdi-star-outline"></span>
+                                                    </p>
+
+                                                    <!-- Product description -->
+                                                    <div class="mt-4">
+                                                        <h6 class="font-14">Price:</h6>
+                                                        <h3> $120.58</h3>
+                                                    </div>
+
+                                                    <!-- Quantity -->
+                                                    <div class="mt-4">
+                                                        <h6 class="font-14">Quantity</h6>
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="size">Men's size</label>
+                                                                    <select class="form-control" id="size">
+                                                                        <option>Chooze size</option>
+                                                                        <option>11.5</option>
+                                                                        <option>11</option>
+                                                                        <option>10.5</option>
+                                                                        <option>10</option>
+                                                                        <option>9.5</option>
+                                                                        <option>9</option>
+                                                                        <option>8.5</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-5">
+                                                                <div class="form-group">
+                                                                    <label for="color">Choose color</label>
+                                                                    <select class="form-control" id="color">
+                                                                        <option>White/Red/Blue</option>
+                                                                        <option>Black/Orange/Green</option>
+                                                                        <option>Gray/Purple/White</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group">
+                                                                    <label for="quantity">Quantity</label>
+                                                                    <select class="form-control" id="quantity">
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                        <option>3</option>
+                                                                        <option>4</option>
+                                                                        <option>5</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Product description -->
+                                                    <div class="mt-4">
+                                                        <h6 class="font-14">Description:</h6>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta voluptatibus quos ea dolore rem, molestias laudantium et explicabo assumenda fugiat deserunt in, facilis laborum excepturi aliquid nobis ipsam deleniti aut? Aliquid sit hic id velit qui fuga nemo suscipit obcaecati. Officia nisi quaerat minus nulla saepe aperiam sint possimus magni veniam provident.</p>
+                                                    </div>
+
+                                                    <!-- Product information -->
+                                                    <div class="mt-4">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <h6 class="font-14">Available Stock:</h6>
+                                                                <p class="font-16 text-dark lh-150">1256</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div> <!-- end col -->
+                                        </div> <!-- end row-->
+
+                                    </div> <!-- end card-body-->
+                                </div> <!-- end card-->
+                            </div> <!-- end col-->
+                        </div>
+                        <!-- end row-->
+                    </div>
+                </div>
+
+                <!-- Footer Area -->
+                <div th:replace="~{commons/common-footer::common-footer-bar}"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

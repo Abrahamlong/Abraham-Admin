@@ -1,0 +1,104 @@
+﻿<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- 引入公共的头文件和静态资源 -->
+    <div th:replace="~{commons/common-static::common-static}"></div>
+    <!-- These plugins only need for the run this page -->
+    <script th:src="@{/js/bootstrap/private/chat-box.js}"></script>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <!-- Main Content-->
+    <div class="main-container-wrapper">
+        <!-- Top bar area -->
+        <div th:replace="~{commons/common-top::common-top-bar}"></div>
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- Side Menu area -->
+            <div th:replace="~{commons/common-side::common-side-bar}"></div>
+
+            <!-- Mani Page -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="container-fluid">
+                        <!-- Start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex justify-content-between mb-30">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dotan</a></li>
+                                            <li class="breadcrumb-item active">Chat Box</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- project card -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <!-- project title-->
+                                        <h2 class="mt-0" style="text-align: center">App design and development</h2>
+                                        <div class="" style="text-align: center; font-size: 16px">
+                                            <small class="mr-2 btn-sm btn-rounded btn-info"> 原创 </small>&nbsp;&nbsp;
+                                            <i class="fa fa-user-o"></i><a> Long </a>&nbsp;&nbsp;
+                                            <i class="fa fa-calendar"></i><a> 2020-11-11 </a>&nbsp;&nbsp;
+                                            <i class="fa fa-bookmark-o"></i></i><a> SpringBoot </a>&nbsp;&nbsp;
+                                            <i class="fa fa-eye"></i><a> 1314 </a>&nbsp;&nbsp;
+                                            <i class="fa fa-comments-o"></i><a> 66 </a>&nbsp;&nbsp;
+                                            <i class="fa fa-heart-o"></i><a> 516 </a>
+                                        </div>
+                                        <h5>博客描述</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam sed ullam nisi soluta architecto
+                                            quia debitis laboriosam pariatur, temporibus voluptatum eos, atque expedita modi et suscipit totam
+                                            quos at ipsum distinctio quis, facilis. Quam odit explicabo sapiente non, totam possimus eius dicta
+                                            error veritatis vel facilis dolorum consequuntur natus iusto. Lorem ipsum dolor sit amet,
+                                            consectetur adipisicing elit. Numquam minima aut, dolor ullam maxime, perspiciatis non,
+                                            nesciunt mollitia voluptatibus laboriosam ab repellat praesentium iusto eaque, deserunt corporis
+                                            vitae doloribus dolorem ?
+                                        </p>
+                                        <h5>正文内容</h5>
+                                        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto deserunt mollitia beatae
+                                            maiores voluptates, non porro totam ad tempora quae laboriosam! Rem earum excepturi magnam,
+                                            ipsa iste, ratione mollitia quae. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                            Aspernatur magnam ipsam nihil. Nobis sunt consequuntur fuga, enim id consequatur pariatur.
+                                            In voluptatibus tempora asperiores pariatur cum, soluta dignissimos qui commodi.
+                                        </p>
+
+                                        <h6 class="mb-20">Team Members:</h6>
+                                        <div class="user-friends">
+                                            <a href=""><img alt="image" class="rounded-circle" th:src="@{/img/member-img/contact-5.jpg}"></a>
+                                            <a href=""><img alt="image" class="rounded-circle" th:src="@{/img/member-img/contact-4.jpg}"></a>
+                                            <a href=""><img alt="image" class="rounded-circle" th:src="@{/img/member-img/contact-3.jpg}"></a>
+                                            <a href=""><img alt="image" class="rounded-circle" th:src="@{/img/member-img/contact-2.jpg}"></a>
+                                            <a href=""><img alt="image" class="rounded-circle" th:src="@{/img/member-img/contact-1.jpg}"></a>
+                                            <a href=""><img alt="image" class="rounded-circle" th:src="@{/img/member-img/contact-5.jpg}"></a>
+                                        </div>
+                                    </div>
+                                </div> <!-- end card-body-->
+                            </div> <!-- end card-->
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Footer Area -->
+                <div th:replace="~{commons/common-footer::common-footer-bar}"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

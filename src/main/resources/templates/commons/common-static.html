@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="common-static">
+        <meta charset="UTF-8">
+        <meta name="description" content="">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+        <!-- Title -->
+        <title>Abraham Long</title>
+
+        <!-- Favicon -->
+        <link rel="icon" th:href="@{/img/core-img/favicon.png}">
+
+        <!-- Master Stylesheet [If you remove this CSS file, your file will be broken undoubtedly.] -->
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+
+        <!-- ======================================
+        ********* Page Wrapper Area End ***********
+        ======================================= -->
+        <!-- Must needed plugins to the run this Template -->
+        <script th:src="@{/js/bootstrap/common/jquery.min.js}"></script>
+        <script th:src="@{/js/bootstrap/common/popper.min.js}"></script>
+        <script th:src="@{/js/bootstrap/common/bootstrap.min.js}"></script>
+        <script th:src="@{/js/bootstrap/common/bundle.js}"></script>
+        <script th:src="@{/js/bootstrap/common/vivus.min.js}"></script>
+        <script th:src="@{/js/bootstrap/common/svg.animation.js}"></script>
+
+        <!-- Inject JS -->
+        <script th:src="@{/js/bootstrap/common/canvas.js}"></script>
+        <script th:src="@{/js/bootstrap/common/collapse.js}"></script>
+        <script th:src="@{/js/bootstrap/common/settings.js}"></script>
+        <script th:src="@{/js/bootstrap/common/template.js}"></script>
+        <script th:src="@{/js/bootstrap/common/active.js}"></script>
+
+        <!--吐司窗口所需-->
+        <link rel="stylesheet" th:href="@{/css/private/toastr.min.css}">
+        <script th:src="@{/js/bootstrap/private/toastr.min.js}"></script>
+
+        <!--表单验证的插件-->
+        <script th:src="@{/js/bootstrap/common/jquery.validate.min.js}"></script>
+
+        <!--弹出询问会话框所需-->
+        <link rel="stylesheet" th:href="@{/css/private/sweetalert-2.min.css}">
+        <script th:src="@{/js/bootstrap/private/sweetalert2.min.js}"></script>
+    </head>
+</html>

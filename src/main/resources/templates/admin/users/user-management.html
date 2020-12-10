@@ -1,0 +1,184 @@
+﻿<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 引入公共的头文件和静态资源 -->
+<div th:replace="~{commons/common-static::common-static}"></div>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <!-- Main Content-->
+    <div class="main-container-wrapper">
+        <!-- Top bar area -->
+        <div th:replace="~{commons/common-top::common-top-bar}"></div>
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- Side Menu area -->
+            <div th:replace="~{commons/common-side::common-side-bar}"></div>
+
+            <!-- Mani Page -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <!-- Product Edit area Start -->
+                    <div class="container-fluid">
+                        <!-- Start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex justify-content-between mb-30">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dotan</a></li>
+                                            <li class="breadcrumb-item active">Order</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form class="form-inline d-flex justify-content-between">
+                                            <div class="form-group">
+                                                <div class="form-group" style="width: 260px">
+                                                    <label for="InputName">姓名: &nbsp;</label>
+                                                    <input type="text" class="form-control" id="InputName" >
+                                                </div>
+                                                <div class="form-group" style="width: 260px">
+                                                    <label for="InputSex"> 性别: &nbsp;</label>
+                                                    <input type="email" class="form-control" id="InputSex" >
+                                                </div>
+                                                <div class="form-group" style="width: 280px">
+                                                    <label for="InputBirth"> 出生年月: &nbsp;</label>
+                                                    <input type="email" class="form-control" id="InputBirth">
+                                                </div>
+                                            </div>
+                                            <div class="form-group mx-sm-3">
+                                                <button type="submit" class="btn btn-rounded btn-outline-primary mb-2 mr-2">搜&nbsp;索</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-30">
+                                <div class="card bg-boxshadow full-height">
+                                    <div class="card-body">
+                                        <div class="">
+                                            <button type="submit" class="btn btn-rounded btn-outline-info mb-2 mr-2">新&nbsp;增</button>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-centered mb-0">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th>Order ID</th>
+                                                    <th data-hide="phone">Customer</th>
+                                                    <th data-hide="phone">Amount</th>
+                                                    <th data-hide="phone">Date added</th>
+                                                    <th data-hide="phone,tablet">Date modified</th>
+                                                    <th data-hide="phone">Role</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        3214
+                                                    </td>
+                                                    <td>
+                                                        Customer example
+                                                    </td>
+                                                    <td>
+                                                        $500.00
+                                                    </td>
+                                                    <td>
+                                                        03/04/2015
+                                                    </td>
+                                                    <td>
+                                                        03/05/2015
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge badge-success badge-pill">admin</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(0);" class="action-icon"> <i class="zmdi zmdi-eye"></i></a>
+                                                        <a href="javascript:void(0);" class="action-icon"> <i class="zmdi zmdi-edit"></i></a>
+                                                        <a href="javascript:void(0);" class="action-icon"> <i class="zmdi zmdi-delete"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        3214
+                                                    </td>
+                                                    <td>
+                                                        Customer example
+                                                    </td>
+                                                    <td>
+                                                        $500.00
+                                                    </td>
+                                                    <td>
+                                                        03/04/2015
+                                                    </td>
+                                                    <td>
+                                                        03/05/2015
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge badge-info badge-pill">member</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(0);" class="action-icon"> <i class="zmdi zmdi-eye"></i></a>
+                                                        <a href="javascript:void(0);" class="action-icon"> <i class="zmdi zmdi-edit"></i></a>
+                                                        <a href="javascript:void(0);" class="action-icon"> <i class="zmdi zmdi-delete"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        324
+                                                    </td>
+                                                    <td>
+                                                        Customer example
+                                                    </td>
+                                                    <td>
+                                                        $320.00
+                                                    </td>
+                                                    <td>
+                                                        12/04/2015
+                                                    </td>
+                                                    <td>
+                                                        21/07/2015
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge badge-danger badge-pill">super-admin</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(0);" class="action-icon"> <i class="zmdi zmdi-eye"></i></a>
+                                                        <a href="javascript:void(0);" class="action-icon"> <i class="zmdi zmdi-edit"></i></a>
+                                                        <a href="javascript:void(0);" class="action-icon"> <i class="zmdi zmdi-delete"></i></a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                    </div>
+                </div>
+
+                <!-- Footer Area -->
+                <div th:replace="~{commons/common-footer::common-footer-bar}"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

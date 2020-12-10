@@ -1,0 +1,142 @@
+﻿<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 引入公共的头文件和静态资源 -->
+<div th:replace="~{commons/common-static::common-static}"></div>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <!-- Main Content-->
+    <div class="main-container-wrapper">
+        <!-- Top bar area -->
+        <div th:replace="~{commons/common-top::common-top-bar}"></div>
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- Side Menu area -->
+            <div th:replace="~{commons/common-side::common-side-bar}"></div>
+
+            <!-- Mani Page -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <!-- Price Table Area Start -->
+                    <div class="container-fluid">
+                        <!-- Start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex justify-content-between mb-30">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dotan</a></li>
+                                            <li class="breadcrumb-item active">Achievement</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row justify-content-center">
+                            <!-- Single Ticket pricing Table -->
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="single-ticket-pricing-table text-center">
+                                    <h6 class="ticket-plan">SSM 个人博客</h6>
+                                    <!-- Ticket Icon -->
+                                    <div class="ticket-icon">
+                                        <i class="icon_pencil-edit_alt"></i>
+                                    </div>
+                                    <h2 class="ticket-price"><span>￥</span>2000</h2>
+
+                                    <!-- Ticket Pricing Table Details -->
+                                    <div class="ticket-pricing-table-details">
+                                        <p><i class="zmdi zmdi-check"></i> Marketing strategy</p>
+                                        <p><i class="zmdi zmdi-check"></i> Social media audit</p>
+                                        <p><i class="zmdi zmdi-check"></i> Monthly management</p>
+                                        <p><i class="zmdi zmdi-check"></i> Keynote talk</p>
+                                        <p><i class="zmdi zmdi-check"></i> Talk to the Editors Session</p>
+                                    </div>
+                                    <a href="#" class="btn btn-primary w-100 mt-30">Get Started <i class="zmdi zmdi-long-arrow-right"></i></a>
+                                </div>
+                            </div>
+
+                            <!-- Single Ticket pricing Table -->
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="single-ticket-pricing-table text-center">
+                                    <h6 class="ticket-plan">SpringBoot 个人博客</h6>
+                                    <!-- Ticket Icon -->
+                                    <div class="ticket-icon">
+                                        <i class="icon_genius"></i>
+                                    </div>
+                                    <h2 class="ticket-price"><span>￥</span>3000</h2>
+
+                                    <!-- Ticket Pricing Table Details -->
+                                    <div class="ticket-pricing-table-details">
+                                        <p><i class="zmdi zmdi-check"></i> Marketing strategy</p>
+                                        <p><i class="zmdi zmdi-check"></i> Social media audit</p>
+                                        <p><i class="zmdi zmdi-check"></i> Monthly management</p>
+                                        <p><i class="zmdi zmdi-check"></i> Keynote talk</p>
+                                        <p><i class="zmdi zmdi-check"></i> Talk to the Editors Session</p>
+                                    </div>
+                                    <a href="#" class="btn btn-primary w-100 mt-30">Get Started <i class="zmdi zmdi-long-arrow-right"></i></a>
+                                </div>
+                            </div>
+
+                            <!-- Single Ticket pricing Table -->
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="single-ticket-pricing-table text-center">
+                                    <h6 class="ticket-plan">毕业设计</h6>
+                                    <!-- Ticket Icon -->
+                                    <div class="ticket-icon">
+                                        <i class="icon_lifesaver"></i>
+                                    </div>
+                                    <h2 class="ticket-price"><span>￥</span>1500</h2>
+
+                                    <!-- Ticket Pricing Table Details -->
+                                    <div class="ticket-pricing-table-details">
+                                        <p><i class="zmdi zmdi-check"></i> Marketing strategy</p>
+                                        <p><i class="zmdi zmdi-check"></i> Social media audit</p>
+                                        <p><i class="zmdi zmdi-check"></i> Monthly management</p>
+                                        <p><i class="zmdi zmdi-check"></i> Keynote talk</p>
+                                        <p><i class="zmdi zmdi-check"></i> Talk to the Editors Session</p>
+                                    </div>
+                                    <a href="#" class="btn btn-primary w-100 mt-30">Get Started <i class="zmdi zmdi-long-arrow-right"></i></a>
+                                </div>
+                            </div>
+
+                            <!-- Single Ticket pricing Table -->
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="single-ticket-pricing-table text-center">
+                                    <h6 class="ticket-plan">个人网站设计</h6>
+                                    <!-- Ticket Icon -->
+                                    <div class="ticket-icon">
+                                        <i class="icon_lifesaver"></i>
+                                    </div>
+                                    <h2 class="ticket-price"><span>￥</span>5000</h2>
+
+                                    <!-- Ticket Pricing Table Details -->
+                                    <div class="ticket-pricing-table-details">
+                                        <p><i class="zmdi zmdi-check"></i> Marketing strategy</p>
+                                        <p><i class="zmdi zmdi-check"></i> Social media audit</p>
+                                        <p><i class="zmdi zmdi-check"></i> Monthly management</p>
+                                        <p><i class="zmdi zmdi-check"></i> Keynote talk</p>
+                                        <p><i class="zmdi zmdi-check"></i> Talk to the Editors Session</p>
+                                    </div>
+                                    <a href="#" class="btn btn-primary w-100 mt-30">Get Started <i class="zmdi zmdi-long-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Area -->
+                <div th:replace="~{commons/common-footer::common-footer-bar}"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

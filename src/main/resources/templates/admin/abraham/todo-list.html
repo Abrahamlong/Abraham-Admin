@@ -1,0 +1,167 @@
+﻿<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- 引入公共的头文件和静态资源 -->
+    <div th:replace="~{commons/common-static::common-static}"></div>
+
+    <script th:src="@{/js/bootstrap/private/todolist.js}"></script>
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <!-- Main Content-->
+    <div class="main-container-wrapper">
+        <!-- Top bar area -->
+        <div th:replace="~{commons/common-top::common-top-bar}"></div>
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- Side Menu area -->
+            <div th:replace="~{commons/common-side::common-side-bar}"></div>
+
+            <!-- Mani Page -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="container-fluid">
+                        <!-- Start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex justify-content-between mb-30">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dotan</a></li>
+                                            <li class="breadcrumb-item active">Todo List</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <div class="card box-margin">
+                                    <div class="card-body px-4 pt-4 pb-0">
+                                        <div class="todo-container">
+                                            <div class="todo-add-items mb-30">
+                                                <input type="text" class="form-control todo-list-form" placeholder="Add task details here..." />
+                                                <button type="button" class="btn btn-primary add-new-todo btn-xs" id="sa-success">新 增</button>
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="btn btn-rounded btn-outline-info mb-2 mr-2">提交</button>
+                                            </div>
+                                            <div class="todo-list-container">
+                                                <ul class="todo-list">
+                                                    <!-- Single todo -->
+                                                    <li class="d-flex align-items-center justify-content-between mb-20">
+                                                        <div class="string-check string-check-bordered-base d-flex align-items-center">
+                                                            <div class="form-group mb-0">
+                                                                <div class="checkbox d-inline">
+                                                                    <input type="checkbox" name="checkbox-1" id="checkbox-1">
+                                                                    <label for="checkbox-1" class="cr"></label>
+                                                                </div>
+                                                            </div>
+                                                            <label class="string-check-label" th:for="formCheckInput">
+                                                                <span class="ml-2">Go to Market</span>
+                                                            </label>
+                                                        </div>
+                                                        <a href="#" class="remove">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 todo-icon">
+                                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                            </svg>
+                                                        </a>
+                                                    </li>
+                                                    <!-- Single todo -->
+                                                    <li class="completed d-flex align-items-center justify-content-between mb-20">
+                                                        <div class="string-check string-check-bordered-base d-flex align-items-center">
+                                                            <div class="form-group mb-0">
+                                                                <div class="checkbox d-inline">
+                                                                    <input type="checkbox" name="checkbox-4" id="checkbox-4">
+                                                                    <label for="checkbox-4" class="cr"></label>
+                                                                </div>
+                                                            </div>
+                                                            <label class="string-check-label" th:for="formCheckInput3">
+                                                                <span class="ml-2">Work for Theme</span>
+                                                            </label>
+                                                        </div>
+                                                        <a href="#" class="remove">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 todo-icon">
+                                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                            </svg>
+                                                        </a>
+                                                    </li>
+                                                    <!-- Single todo -->
+                                                    <li class="d-flex align-items-center justify-content-between mb-20">
+                                                        <div class="string-check string-check-bordered-base d-flex align-items-center">
+                                                            <div class="form-group mb-0">
+                                                                <div class="checkbox d-inline">
+                                                                    <input type="checkbox" name="checkbox-11" id="checkbox-11">
+                                                                    <label for="checkbox-11" class="cr"></label>
+                                                                </div>
+                                                            </div>
+                                                            <label class="string-check-label" th:for="formCheckInput41">
+                                                                <span class="ml-2">Theme-zome team meet after lunch</span>
+                                                            </label>
+                                                        </div>
+                                                        <a href="#" class="remove">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 todo-icon">
+                                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                            </svg>
+                                                        </a>
+                                                    </li>
+
+                                                    <!-- Single todo -->
+                                                    <li class="completed d-flex align-items-center justify-content-between mb-20">
+                                                        <div class="string-check string-check-bordered-base d-flex align-items-center">
+                                                            <div class="form-group mb-0">
+                                                                <div class="checkbox d-inline">
+                                                                    <input type="checkbox" name="checkbox-18" id="checkbox-18">
+                                                                    <label for="checkbox-18" class="cr"></label>
+                                                                </div>
+                                                            </div>
+                                                            <label class="string-check-label" th:for="formCheckInput1">
+                                                                <span class="ml-2">Fixed Template Issues </span>
+                                                            </label>
+                                                        </div>
+                                                        <a href="#" class="remove">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 todo-icon">
+                                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                            </svg>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Area -->
+                <div th:replace="~{commons/common-footer::common-footer-bar}"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

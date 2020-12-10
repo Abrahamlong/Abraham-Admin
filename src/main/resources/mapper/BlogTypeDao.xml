@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abraham.dao.BlogTypeDao">
+
+    <resultMap type="com.abraham.entity.BlogType" id="BlogTypeMap">
+        <result property="typeId" column="type_id" jdbcType="INTEGER"/>
+        <result property="typeName" column="type_name" jdbcType="VARCHAR"/>
+        <result property="blogCount" column="blog_count" jdbcType="INTEGER"/>
+        <result property="fileCount" column="file_count" jdbcType="INTEGER"/>
+        <result property="typeStatus" column="type_status" jdbcType="INTEGER"/>
+        <result property="createUser" column="create_user" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="VARCHAR"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="VARCHAR"/>
+        <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--根据博客类型ID查询单个-->
+    <select id="queryById" resultMap="BlogTypeMap">
+        select
+          type_id, type_name, blog_count, file_count, type_status, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.blog_type
+        where type_id = #{typeId} and is_delete = 0;
+    </select>
+
+    <!--根据博客类型名称查询单个-->
+    <select id="queryByName" resultMap="BlogTypeMap">
+        select
+          type_id, type_name, blog_count, file_count, type_status, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.blog_type
+        where type_name = #{typeName} and is_delete = 0;
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAllByCondition" resultMap="BlogTypeMap">
+        select
+        type_id, type_name, blog_count, file_count, type_status, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.blog_type
+        <where>
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and type_name = #{typeName}
+            </if>
+            <if test="blogCount != null">
+                and blog_count = #{blogCount}
+            </if>
+            <if test="fileCount != null">
+                and file_count = #{fileCount}
+            </if>
+            <if test="typeStatus != null">
+                and type_status = #{typeStatus}
+            </if>
+            <if test="createUser != null">
+                and create_user = #{createUser}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="true">
+                and is_delete = 0
+            </if>
+        </where>
+        order by type_id desc
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="typeId" useGeneratedKeys="true">
+        insert into long_blog.blog_type(type_name, blog_count, file_count, type_status, create_user, gmt_create, gmt_modified, is_delete)
+        values (#{typeName}, #{blogCount}, #{fileCount}, #{typeStatus}, #{createUser}, #{gmtCreate}, #{gmtModified}, #{deleteFlag})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update long_blog.blog_type
+        <set>
+            <if test="typeName != null and typeName != ''">
+                type_name = #{typeName},
+            </if>
+            <if test="blogCount != null">
+                blog_count = #{blogCount},
+            </if>
+            <if test="fileCount != null">
+                file_count = #{fileCount},
+            </if>
+            <if test="typeStatus != null">
+                type_status = #{typeStatus},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+        </set>
+        where type_id = #{typeId}
+    </update>
+
+    <!-- 通过主键删除 -->
+    <update id="deleteById">
+        update long_blog.blog_type set is_delete = 1 where type_id = #{typeId}
+    </update>
+
+</mapper>

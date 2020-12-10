@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abraham.dao.GalleryDao">
+
+    <resultMap type="com.abraham.entity.Gallery" id="GalleryMap">
+        <result property="pictureId" column="picture_id" jdbcType="INTEGER"/>
+        <result property="pictureAddress" column="picture_address" jdbcType="VARCHAR"/>
+        <result property="pictureName" column="picture_name" jdbcType="VARCHAR"/>
+        <result property="pictureDescription" column="picture_description" jdbcType="VARCHAR"/>
+        <result property="pictureType" column="picture_type" jdbcType="INTEGER"/>
+        <result property="useCount" column="use_count" jdbcType="INTEGER"/>
+        <result property="createUser" column="create_user" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="GalleryMap">
+        select
+          picture_id, picture_address, picture_name, picture_description, picture_type, use_count, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.gallery
+        where picture_id = #{pictureId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="GalleryMap">
+        select
+          picture_id, picture_address, picture_name, picture_description, picture_type, use_count, create_user, gmt_create, gmt_modified, is_delete
+        from long_blog.gallery
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="GalleryMap">
+        select
+        picture_id, picture_address, picture_name, picture_description, picture_type, use_count, create_user,
+        gmt_create, gmt_modified, is_delete
+        from long_blog.gallery
+        <where>
+            <if test="pictureId != null">
+                and picture_id = #{pictureId}
+            </if>
+            <if test="pictureAddress != null and pictureAddress != ''">
+                and picture_address = #{pictureAddress}
+            </if>
+            <if test="pictureName != null and pictureName != ''">
+                and picture_name = #{pictureName}
+            </if>
+            <if test="pictureDescription != null and pictureDescription != ''">
+                and picture_description = #{pictureDescription}
+            </if>
+            <if test="pictureType != null">
+                and picture_type = #{pictureType}
+            </if>
+            <if test="useCount != null">
+                and use_count = #{useCount}
+            </if>
+            <if test="createUser != null">
+                and create_user = #{createUser}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="pictureId" useGeneratedKeys="true">
+        insert into long_blog.gallery(picture_address, picture_name, picture_description, picture_type, use_count, create_user, gmt_create, gmt_modified, is_delete)
+        values (#{pictureAddress}, #{pictureName}, #{pictureDescription}, #{pictureType}, #{useCount}, #{createUser}, #{gmtCreate}, #{gmtModified}, #{isDelete})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="pictureId" useGeneratedKeys="true">
+        insert into long_blog.gallery(picture_address, picture_name, picture_description, picture_type, use_count,
+        create_user, gmt_create, gmt_modified, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.pictureAddress}, #{entity.pictureName}, #{entity.pictureDescription}, #{entity.pictureType},
+            #{entity.useCount}, #{entity.createUser}, #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.isDelete})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="pictureId" useGeneratedKeys="true">
+        insert into long_blog.gallery(picture_address, picture_name, picture_description, picture_type, use_count,
+        create_user, gmt_create, gmt_modified, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.pictureAddress}, #{entity.pictureName}, #{entity.pictureDescription}, #{entity.pictureType},
+            #{entity.useCount}, #{entity.createUser}, #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.isDelete})
+        </foreach>
+        on duplicate key update
+        picture_address = values(picture_address) , picture_name = values(picture_name) , picture_description =
+        values(picture_description) , picture_type = values(picture_type) , use_count = values(use_count) , create_user
+        = values(create_user) , gmt_create = values(gmt_create) , gmt_modified = values(gmt_modified) , is_delete =
+        values(is_delete)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update long_blog.gallery
+        <set>
+            <if test="pictureAddress != null and pictureAddress != ''">
+                picture_address = #{pictureAddress},
+            </if>
+            <if test="pictureName != null and pictureName != ''">
+                picture_name = #{pictureName},
+            </if>
+            <if test="pictureDescription != null and pictureDescription != ''">
+                picture_description = #{pictureDescription},
+            </if>
+            <if test="pictureType != null">
+                picture_type = #{pictureType},
+            </if>
+            <if test="useCount != null">
+                use_count = #{useCount},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where picture_id = #{pictureId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from long_blog.gallery where picture_id = #{pictureId}
+    </delete>
+
+</mapper>
