@@ -49,7 +49,7 @@ public class BlogTypeController {
      * 跳转到博客类型页面
      * @return 博客类型新增页面
      */
-    @RequestMapping("/toAdd")
+    @RequestMapping("/add")
     public String toAdd(){
         return "admin/management/types-add";
     }
@@ -61,7 +61,7 @@ public class BlogTypeController {
      * @return 结果信息
      */
     @ResponseBody
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/addType", method = RequestMethod.POST)
     public Result addType(BlogType blogType, HttpSession session){
         BlogType type = blogTypeService.queryByName(blogType.getTypeName());
         if (type != null){
@@ -82,7 +82,7 @@ public class BlogTypeController {
      * @param model 向前端传递的数据对象
      * @return 博客类型新增页面
      */
-    @RequestMapping("/toEdit/{id}")
+    @RequestMapping("/edit/{id}")
     public String toEdit(@PathVariable("id") Long id, Model model){
         BlogType blogType = blogTypeService.queryById(id);
         model.addAttribute("type",blogType);
@@ -97,7 +97,7 @@ public class BlogTypeController {
      * @return 结果信息
      */
     @ResponseBody
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/editType", method = RequestMethod.POST)
     public Result editType(BlogType blogType, String oldTypeName, HttpSession session){
         if (!oldTypeName.equals(blogType.getTypeName())) {
             BlogType type = blogTypeService.queryByName(blogType.getTypeName());

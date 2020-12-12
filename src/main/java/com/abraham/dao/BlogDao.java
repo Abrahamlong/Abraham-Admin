@@ -24,16 +24,22 @@ public interface BlogDao {
      * @param blogId 主键
      * @return 实例对象
      */
-    Blog queryById(Long blogId);
+    BlogManagementVO queryById(Long blogId);
 
     /**
-     * 查询指定行数据
+     * 通过博客标题查询单条数据(后台博客管理)
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param blogTitle 博客标题
+     * @return 实例对象
+     */
+    Blog queryByTitle(String blogTitle);
+
+    /**
+     * 查询所有数据(后台博客管理)
+     *
      * @return 对象列表
      */
-    List<Blog> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<BlogManagementVO> queryAll();
 
 
     /**
@@ -51,22 +57,6 @@ public interface BlogDao {
      * @return 影响行数
      */
     int insert(Blog blog);
-
-    /**
-     * 批量新增数据（MyBatis原生foreach方法）
-     *
-     * @param entities List<Blog> 实例对象列表
-     * @return 影响行数
-     */
-    int insertBatch(@Param("entities") List<Blog> entities);
-
-    /**
-     * 批量新增或按主键更新数据（MyBatis原生foreach方法）
-     *
-     * @param entities List<Blog> 实例对象列表
-     * @return 影响行数
-     */
-    int insertOrUpdateBatch(@Param("entities") List<Blog> entities);
 
     /**
      * 修改数据

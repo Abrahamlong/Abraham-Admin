@@ -1,6 +1,7 @@
 package com.abraham.dao;
 
 import com.abraham.entity.BlogType;
+import com.abraham.vo.BlogTypeVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -40,6 +41,13 @@ public interface BlogTypeDao {
      * @return 对象列表
      */
     List<BlogType> queryAllByCondition(BlogType blogType);
+
+    /**
+     * 查询所有数据，仅返回类型id和类型名称（博客新增使用）
+     *
+     * @return 对象列表
+     */
+    List<BlogTypeVO> queryAll();
 
     /**
      * 新增数据

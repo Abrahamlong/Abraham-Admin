@@ -1,5 +1,6 @@
 package com.abraham.vo;
 
+import com.abraham.entity.BlogType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -72,4 +73,9 @@ public class BlogManagementVO {
      * 是否删除，0-不删除，1-删除
      */
     private Integer deleteFlag;
+
+    /**
+     * 博客类型
+     */
+    private BlogType blogType;
 }

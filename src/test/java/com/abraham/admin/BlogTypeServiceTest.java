@@ -2,6 +2,7 @@ package com.abraham.admin;
 
 import com.abraham.entity.BlogType;
 import com.abraham.service.BlogTypeService;
+import com.abraham.vo.BlogTypeVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
@@ -17,7 +18,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * @Description:
+ * @Description: 博客类型service的测试类
+ *
  * @author: Long
  * @date Create in 14:30 2020/12/2
  */
@@ -59,5 +61,13 @@ public class BlogTypeServiceTest {
     void testGetUser(){
         Subject subject = SecurityUtils.getSubject();
         System.out.println(subject);
+    }
+
+    @Test
+    void testQueryAll(){
+        List<BlogTypeVO> blogTypeVOS = blogTypeService.queryAll();
+        for (BlogTypeVO blogTypeVO : blogTypeVOS) {
+            System.out.println(blogTypeVO);
+        }
     }
 }

@@ -11,8 +11,10 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @author Long
- * @date 2020/11/28
+ * @Description: 备忘录service的测试类
+ *
+ * @author: Long
+ * @date Create in 14:52 2020/11/28
  */
 @SpringBootTest
 public class MemoServiceTest {

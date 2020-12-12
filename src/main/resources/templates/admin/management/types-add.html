@@ -30,7 +30,7 @@
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item">管理中心</li>
-                                        <li class="breadcrumb-item"><a th:href="@{/admin/management/types-management}">博客类型</a></li>
+                                        <li class="breadcrumb-item"><a th:href="@{/admin/management/types-management}">类型管理</a></li>
                                         <li class="breadcrumb-item active">新增</li>
                                     </ol>
                                 </div>
@@ -105,7 +105,7 @@
             typeStatus = 1;
         }
         $.ajax({
-            url: '/admin/management/types-management/add',
+            url: '/admin/management/types-management/addType',
             type: 'post',
             data: {
                 "typeName": typeName,

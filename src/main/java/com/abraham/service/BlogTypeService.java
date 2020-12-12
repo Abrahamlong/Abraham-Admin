@@ -1,6 +1,7 @@
 package com.abraham.service;
 
 import com.abraham.entity.BlogType;
+import com.abraham.vo.BlogTypeVO;
 
 import java.util.List;
 
@@ -35,6 +36,13 @@ public interface BlogTypeService {
      * @return 对象列表
      */
     List<BlogType> queryAllByCondition(BlogType blogType);
+
+    /**
+     * 查询所有数据，仅返回类型id和类型名称（博客新增使用）
+     *
+     * @return 对象列表
+     */
+    List<BlogTypeVO> queryAll();
 
     /**
      * 新增数据

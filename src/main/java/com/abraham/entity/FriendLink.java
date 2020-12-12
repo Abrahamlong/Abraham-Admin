@@ -47,11 +47,11 @@ public class FriendLink implements Serializable {
     /**
      * 创建时间
      */
-    private Date gmtCreate;
+    private String gmtCreate;
     /**
      * 更新时间
      */
-    private Date gmtModified;
+    private String gmtModified;
     /**
      * 是否删除，0-不删除，1-删除
      */

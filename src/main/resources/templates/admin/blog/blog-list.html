@@ -1,0 +1,316 @@
+﻿<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 引入公共的头文件和静态资源 -->
+<div th:replace="~{commons/common-static::common-static}"></div>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <!-- Main Content-->
+    <div class="main-container-wrapper">
+        <!-- Top bar area -->
+        <div th:replace="~{commons/common-top::common-top-bar}"></div>
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- Side Menu area -->
+            <div th:replace="~{commons/common-side::common-side-bar}"></div>
+
+            <!-- Mani Page -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <!-- Calendar area Start -->
+                    <div class="container-fluid">
+                        <!-- Start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex justify-content-between mb-30">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item">博客中心</li>
+                                            <li class="breadcrumb-item active"><a th:href="@{/admin/blog/list}">博客管理</a></li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+                        <div class="row">
+                            <!-- 搜索区域主体 -->
+<!--                            <div class="col-12 col-md">-->
+<!--                                <div class="card">-->
+<!--                                    <div class="card-body">-->
+<!--                                        <form id="blogSearch" class="form-inline justify-content-between">-->
+<!--                                            <div class="form-group">-->
+<!--                                                <div class="form-group form-wight-300">-->
+<!--                                                    <label for="blogTitle" class="col-form-label">博客标题</label>-->
+<!--                                                    <input type="text" class="form-control left-distance-10" id="blogTitle" name="blogTitle">-->
+<!--                                                </div>-->
+<!--                                                <div class="form-group form-wight-300">-->
+<!--                                                    <label for="blogType" class="col-form-label">博客类型</label>-->
+<!--                                                    <input type="text" class="form-control left-distance-10" id="blogType" name="blogType">-->
+<!--                                                </div>-->
+<!--                                                <div class="form-group form-wight-200" >-->
+<!--                                                    <label for="creationType" class="col-form-label">创作类型</label>-->
+<!--                                                    <select id="creationType" name="creationType" class="form-control left-distance-10">-->
+<!--                                                        <option value=""></option>-->
+<!--                                                        <option value="0">原创</option>-->
+<!--                                                        <option value="1">转载</option>-->
+<!--                                                        <option value="2">翻译</option>-->
+<!--                                                        <option value="3">随笔</option>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                                <div class="form-group form-wight-200">-->
+<!--                                                    <label for="published" class="col-form-label">发布状态</label>-->
+<!--                                                    <select id="published" name="published" class="form-control left-distance-10">-->
+<!--                                                        <option value=""></option>-->
+<!--                                                        <option value="0">未发布</option>-->
+<!--                                                        <option value="1">已发布</option>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="form-group">&ndash;&gt;-->
+<!--                                                <div class="form-group form-wight-200">-->
+<!--                                                    <label for="commendable" class="col-form-label">赞赏状态</label>-->
+<!--                                                    <select id="commendable" name="commendable" class="form-control left-distance-10">-->
+<!--                                                        <option value=""></option>-->
+<!--                                                        <option value="0">未开启</option>-->
+<!--                                                        <option value="1">已开启</option>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                                <div class="form-group form-wight-200">-->
+<!--                                                    <label for="recommend" class="col-form-label">推荐状态</label>-->
+<!--                                                    <select id="recommend" name="recommend" class="form-control left-distance-10">-->
+<!--                                                        <option value=""></option>-->
+<!--                                                        <option value="0">未推荐</option>-->
+<!--                                                        <option value="1">已推荐</option>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group mx-sm-3">-->
+<!--                                                <button type="submit" class="btn btn-rounded btn-outline-primary mb-2 mr-2">搜&nbsp;索</button>-->
+<!--                                                <button type="button" class="btn btn-rounded btn-outline-info mb-2 mr-2">重&nbsp;置</button>-->
+<!--                                            </div>-->
+<!--                                        </form>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <!-- 表格区域主体 -->
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="bg-primary text-white">
+                                                    <tr>
+                                                        <th>博客ID</th>
+                                                        <th>博客标题</th>
+                                                        <th>创作类型</th>
+                                                        <th>博客类型</th>
+                                                        <th>首图地址</th>
+                                                        <th>发布状态</th>
+                                                        <th>赞赏状态</th>
+                                                        <th>推荐状态</th>
+                                                        <th>更新时间</th>
+                                                        <th style="width: 143px; text-align: center">操作</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="blog:${blogList}">
+                                                        <td th:text="${blog.getBlogId()}">1</td>
+                                                        <td th:text="${blog.getBlogTitle()}">Java</td>
+                                                        <td>
+                                                            <span class="badge badge-info badge-pill" th:if="${blog.getCreationType() == 0}">原创</span>
+                                                            <span class="badge badge-warning badge-pill" th:if="${blog.getCreationType() == 1}">转载</span>
+                                                            <span class="badge badge-primary badge-pill" th:if="${blog.getCreationType() == 2}">翻译</span>
+                                                            <span class="badge badge-secondary badge-pill" th:if="${blog.getCreationType() == 3}">随笔</span>
+                                                        </td>
+                                                        <td th:text="${blog.getBlogType().getTypeName()}">Java</td>
+                                                        <td th:text="${blog.getFirstPicture()}">/love/long</td>
+                                                        <td>
+                                                            <span class="badge badge-danger badge-pill" th:if="${blog.getPublished() == 0}">未发布</span>
+                                                            <span class="badge badge-success badge-pill" th:if="${blog.getPublished() == 1}">已发布</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="badge badge-danger badge-pill" th:if="${blog.getCommendable() == 0}">不开启</span>
+                                                            <span class="badge badge-success badge-pill"  th:if="${blog.getCommendable() == 1}">已开启</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="badge badge-danger badge-pill" th:if="${blog.getRecommend() == 0}">不推荐</span>
+                                                            <span class="badge badge-success badge-pill"  th:if="${blog.getRecommend() == 1}">已推荐</span>
+<!--                                                            <span class="badge badge-info badge-pill"  th:text="${blog.getRecommend() == 1 ? '已推荐' : '不推荐'}"></span>-->
+                                                        </td>
+                                                        <td th:text="${blog.getGmtModified()}">2020-11-11 13:14:20</td>
+                                                        <td>
+                                                            <a th:href="@{'/admin/blog/edit/' + ${blog.getBlogId()}}">
+                                                                <button type="button" class="btn btn-outline-warning btn-sm mb-2 mr-2">编辑</button>
+                                                            </a>
+                                                            <a th:onclick="'remove(' + ${blog.getBlogId()} + ')'">
+                                                                <button type="button" class="btn btn-outline-danger btn-sm mb-2 mr-2">删除</button>
+                                                            </a>
+                                                            <a th:if="${blog.getPublished() == 1}" th:onclick="'updatePublished(' + ${blog.getBlogId()} + ', 0)'">
+                                                                <button type="button" class="btn btn-outline-info btn-sm mb-2 mr-2">不发</button>
+                                                            </a>
+                                                            <a th:if="${blog.getPublished() == 0}" th:onclick="'updatePublished(' + ${blog.getBlogId()} + ', 1)'">
+                                                                <button type="button" class="btn btn-outline-success btn-sm mb-2 mr-2" >发布</button>
+                                                            </a>
+                                                            <a  th:href="@{'/admin/blog/detail/' + ${blog.getBlogId()}}">
+                                                                <button type="button" class="btn btn-outline-primary btn-sm mb-2 mr-2">详情</button>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- 分页数据 -->
+                                        <div class="row justify-content-between" style="margin-top: 23px">
+                                            <div class="" style="margin-left: 30px">
+                                                <div class="dataTables_info" id="datatable-buttons_info" role="status" aria-live="polite">
+                                                    第 <span th:text="${blogPageInfo.pageNum}">1</span> 页 ( 第
+                                                    <span th:text="${blogPageInfo.startRow}">1</span> 到
+                                                    <span th:text="${blogPageInfo.endRow}">10</span> 条记录 )，共
+                                                    <span th:text="${blogPageInfo.pages}">10</span> 页 共
+                                                    <span th:text="${blogPageInfo.total}">66</span> 条记录
+                                                </div>
+                                            </div>
+                                            <div class="" style="margin-right: 40px">
+                                                <div class="dataTables_paginate paging_simple_numbers" id="datatable-buttons_paginate">
+                                                    <ul class="pagination pagination-rounded">
+                                                        <li class="paginate_button page-item previous" id="datatable-buttons_previous" th:if="${blogPageInfo.prePage != 0}">
+                                                            <a th:href="@{'?pageNum=' + ${blogPageInfo.nextPage}}" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0" class="page-link">
+                                                                <i class="arrow_carrot-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <th:block th:each="num : ${blogPageInfo.navigatepageNums}">
+                                                            <li th:class="${num == blogPageInfo.pageNum} ? 'paginate_button page-item active' : 'paginate_button page-item'">
+                                                                <a aria-controls="datatable-buttons" class="page-link" th:href="@{'?pageNum=' + ${num}}" th:text="${num}"></a>
+                                                            </li>
+                                                        </th:block>
+                                                        <li class="paginate_button page-item next" id="datatable-buttons_next" th:if="${blogPageInfo.nextPage != 0}">
+                                                            <a th:href="@{'?pageNum=' + ${blogPageInfo.nextPage}}" aria-controls="datatable-buttons" data-dt-idx="7" tabindex="0" class="page-link">
+                                                                <i class="arrow_carrot-right"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Area -->
+                <div th:replace="~{commons/common-footer::common-footer-bar}"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * 删除备忘录的单条记录
+         * @param id 要删除备忘录对应的Id
+         */
+        function remove(id){
+            Swal.fire({
+                title: "确定删除吗？",
+                text: "你将删除这条数据，删除之后就找不到了哦~",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonColor: "#33ff33",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "删除",
+                cancelButtonText: "取消"
+            }).then(function(flag) {
+                flag.value ? $.ajax({
+                    url: '/admin/blog/delete/' + id,
+                    type: "get",
+                    success: function (result) {
+                        if (result.code === 0) {
+                            Swal.fire("删除成功", result.msg, "success").then(function (t) {
+                                // t.value && location.replace("/admin/management/types-management");
+                                t.value && window.location.reload();
+                            });
+                        } else {
+                            Swal.fire("删除失败", result.msg, "error");
+                        }
+                    }
+                }) : t.dismiss === Swal.DismissReason.cancel
+            })
+        }
+
+        /**
+         * 更新博客发布状态
+         * @param blogId 博客Id
+         * @param published 要更新的发布状态
+         */
+        function updatePublished(blogId, published) {
+            $.ajax({
+                url: '/admin/blog/updatePublished',
+                type: 'post',
+                data: {
+                    "blogId": blogId,
+                    "published": published
+                },
+                dataType: 'json',
+                success: function (result) {
+                    if (result.code === 0) {
+                        toastr.success(result.msg, "", {
+                            positionClass: "toastr toast-top-center",
+                            containerId: "toast-top-center",
+                            showMethod: "slideDown",
+                            hideMethod: "slideUp",
+                            timeOut: 2e3
+                        });
+                        window.location.replace('/admin/blog/list');
+                    } else {
+                        toastr.error(result.msg, "", {
+                            positionClass: "toastr toast-top-center",
+                            containerId: "toast-top-center",
+                            showMethod: "slideDown",
+                            hideMethod: "slideUp",
+                            timeOut: 2e3
+                        })
+                    }
+                }
+            })
+        }
+
+        $('#blogSearch').validate({
+            submitHandler: function (form) {
+                search();
+            }
+        });
+
+        function search() {
+            const blogTitle = $("#blogTitle").val();
+            const blogType = $("#blogType").val();
+            const creationType = $("#creationType option:selected").val();
+            const published = $("#published option:selected").val();
+            const commendable = $("#commendable option:selected").val();
+            const recommend = $("#recommend option:selected").val();
+            const config = {
+                url: '/admin/blog/search',
+                type: 'post',
+                data: {
+                    'blogTitle': blogTitle,
+                    'type': blogType,
+                    'creationType': creationType,
+                    'published': published,
+                    'commendable': commendable,
+                    'recommend': recommend
+                },
+                dataType: 'json'
+            };
+            console.log(config);
+            $.ajax(config);
+        }
+    </script>
+</body>
+
+</html>

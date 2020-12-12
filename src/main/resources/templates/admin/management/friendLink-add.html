@@ -29,9 +29,9 @@
                             <div class="page-title-box d-flex justify-content-between mb-30">
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item">亚伯拉罕</li>
-                                        <li class="breadcrumb-item"><a th:href="@{/admin/abraham/memo}">备忘录</a></li>
-                                        <li class="breadcrumb-item active">编辑</li>
+                                        <li class="breadcrumb-item">管理中心</li>
+                                        <li class="breadcrumb-item"><a th:href="@{/admin/management/friendLink}">友链管理</a></li>
+                                        <li class="breadcrumb-item active">新增</li>
                                     </ol>
                                 </div>
                             </div>
@@ -44,28 +44,27 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="text-center" style="margin-top: 20px">
-                                        <h4 class="modal-title">编辑备忘录</h4>
+                                        <h4 class="modal-title">新增友链</h4>
                                         <hr/>
                                     </div>
-                                    <form id="memoEdit" class="forms-sample" method="post">
-                                        <input id="memoId" name="memoId" type="hidden" th:value="${memo.getMemoId()}"/>
+                                    <form id="friendLinkAdd" class="forms-sample" method="post">
                                         <div class="form-group">
-                                            <label for="memoTitle">备忘录标题</label>
-                                            <input id="memoTitle" class="form-control" name="memoTitle" minlength="2" type="text" th:value="${memo.getMemoTitle()}" required>
+                                            <label for="blogAddress">博客地址</label>
+                                            <input id="blogAddress" class="form-control" name="blogAddress" minlength="2" type="text" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="memoContent">内容</label>
-                                            <textarea class="form-control" id="memoContent" name="memoContent" rows="5" th:text="${memo.getMemoContent()}"></textarea>
+                                            <label for="blogName">博客名称</label>
+                                            <input id="blogName" class="form-control" type="text" name="blogName" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="createUser">创建用户</label>
-                                            <input id="createUser" class="form-control" type="text" name="createUser" required readonly th:value="${memo.getCreateUser()}">
+                                            <label for="pictureAddress">图片地址</label>
+                                            <input id="pictureAddress" class="form-control" type="text" name="pictureAddress" required>
                                         </div>
                                         <div class="form-group form-line">
-                                            <label class="col-form-label">备忘录状态</label>
+                                            <label class="col-form-label">友链状态</label>
                                             <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="memoStatus" th:checked="${memo.getMemoStatus() == 1}" name="memoStatus" value="1">
-                                                <label class="custom-control-label" for="memoStatus">完成</label>
+                                                <input type="checkbox" class="custom-control-input" id="friendStatus" name="friendStatus" value="1">
+                                                <label class="custom-control-label" for="friendStatus">开启</label>
                                             </div>
                                         </div>
                                         <div class="form-group text-center">
@@ -88,33 +87,31 @@
 </div>
 
 <script>
-    $('#memoEdit').validate({
+    $('#friendLinkAdd').validate({
         submitHandler: function (form) {
-            edit();
+            add();
         }
     });
 
     /**
-     * 提交编辑备忘录
+     * 提交新增博客类型
      */
-    function edit() {
-        const memoId = $("#memoId").val();
-        const memoTitle = $("#memoTitle").val();
-        const memoContent = $("#memoContent").val();
-        const createUser = $("#createUser").val();
-        let memoStatus = 0;
-        if ($("#memoStatus").prop('checked')){
-            memoStatus = 1;
+    function add() {
+        const blogAddress = $("#blogAddress").val();
+        const blogName = $("#blogName").val();
+        const pictureAddress = $("#pictureAddress").val();
+        let friendStatus = 0;
+        if ($("#friendStatus").prop('checked')){
+            friendStatus = 1;
         }
         $.ajax({
-            url: '/admin/abraham/memo/editMemo',
+            url: '/admin/management/friendLink/addFriendLink',
             type: 'post',
             data: {
-                "memoId": memoId,
-                "memoTitle": memoTitle,
-                "memoContent": memoContent,
-                "createUser": createUser,
-                "memoStatus": memoStatus
+                "blogAddress": blogAddress,
+                "blogName": blogName,
+                "pictureAddress": pictureAddress,
+                "friendStatus": friendStatus
             },
             success: function (result) {
                 if (result.code === 0) {
@@ -125,7 +122,7 @@
                         hideMethod: "slideUp",
                         timeOut: 2e3
                     });
-                    window.location.replace('/admin/abraham/memo');
+                    window.location.replace('/admin/management/friendLink');
                 } else {
                     toastr.error(result.msg, "", {
                         positionClass: "toastr toast-top-center",
@@ -140,10 +137,10 @@
     }
 
     /**
-     * 取消窗口，重定向到备忘录列表页面
+     * 取消窗口，重定向到博客类型列表页面
      */
     function cancel() {
-        window.location.replace('/admin/abraham/memo');
+        window.location.replace('/admin/management/friendLink');
     }
 </script>
 </body>

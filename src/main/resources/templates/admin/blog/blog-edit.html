@@ -35,8 +35,9 @@
                             <div class="page-title-box d-flex justify-content-between mb-30">
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dotan</a></li>
-                                        <li class="breadcrumb-item active">Edit</li>
+                                        <li class="breadcrumb-item">博客中心</li>
+                                        <li class="breadcrumb-item"><a th:href="@{/admin/blog/list}">博客管理</a></li>
+                                        <li class="breadcrumb-item active">编辑</li>
                                     </ol>
                                 </div>
                             </div>
@@ -49,53 +50,77 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="forms-sample">
+                                    <div class="text-center" style="margin-top: 20px">
+                                        <h4 class="modal-title">博客编辑</h4>
+                                        <hr/>
+                                    </div>
+                                    <form id="editBlog" class="forms-sample">
+                                        <input id="blogId" name="blogId" type="hidden" th:value="${blog.getBlogId()}"/>
+                                        <input id="oldBlogTitle" name="oldBlogTitle" type="hidden" th:value="${blog.getBlogTitle()}"/>
                                         <div class="form-group">
-                                            <label for="exampleInputName1">博客标题</label>
-                                            <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+                                            <label for="blogTitle">博客标题</label>
+                                            <input type="text" class="form-control" id="blogTitle" name="blogTitle" th:value="${blog.getBlogTitle()}">
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
-                                                <label for="inputTypes" class="col-form-label">创作类型</label>
-                                                <select id="inputTypes" class="form-control">
-                                                    <option></option>
-                                                    <option>原创</option>
-                                                    <option>转载</option>
-                                                    <option>翻译</option>
-                                                    <option>总结</option>
+                                                <label for="creationType" class="col-form-label">创作类型</label>
+                                                <select id="creationType" name="creationType" class="form-control">
+                                                    <option th:selected="${blog.getCreationType()} == -1" value="-1">请选择创作类型</option>
+                                                    <option th:selected="${blog.getCreationType()} == 0" value="0">原创</option>
+                                                    <option th:selected="${blog.getCreationType()} == 1" value="1">转载</option>
+                                                    <option th:selected="${blog.getCreationType()} == 2" value="2">翻译</option>
+                                                    <option th:selected="${blog.getCreationType()} == 3" value="3">总结</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="blogTypes" class="col-form-label">博客类型</label>
-                                                <select id="blogTypes" class="form-control">
-                                                    <option></option>
-                                                    <option>Spring</option>
-                                                    <option>MyBatis</option>
-                                                    <option>Java</option>
-                                                    <option>SpringMVC</option>
+                                                <label for="typeId" class="col-form-label">博客类型</label>
+                                                <select id="typeId" name="typeId" class="form-control">
+                                                    <option value="-1">请选择博客类型</option>
+                                                    <option th:selected="${blog.getTypeId()} == ${type.getTypeId()}" th:each="type : ${blogTypes}" th:value="${type.getTypeId()}" th:text="${type.getTypeName()}">SpringMVC</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="picture" class="col-form-label">首图地址</label>
-                                                <select id="picture" class="form-control">
-                                                    <option></option>
-                                                    <option>/image/female</option>
-                                                    <option>/image/long</option>
-                                                    <option>/image/abraham</option>
+                                                <label for="firstPicture" class="col-form-label">首图地址</label>
+                                                <select id="firstPicture" name="firstPicture" class="form-control">
+                                                    <option th:selected="${blog.getFirstPicture() == '-1'}" value="-1">请选择首图地址</option>
+                                                    <option th:selected="${blog.getFirstPicture() == '11'}" value="11">/image/female</option>
+                                                    <option th:selected="${blog.getFirstPicture() == '22'}" value="22">/image/long</option>
+                                                    <option th:selected="${blog.getFirstPicture() == '33'}" value="33">/image/abraham</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="content">博客正文</label>
                                             <div id="content" class="form-control">
-                                                <label>
-                                                    <textarea name="content" style="display: none;"></textarea>
-                                                </label>
+                                                <textarea id="blogContent" name="blogContent" style="display: none;" th:text="${blog.getBlogContent()}"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="blogDetail">博客描述</label>
-                                            <textarea class="form-control" id="blogDetail" rows="4"></textarea>
+                                            <label for="blogDescription">博客描述</label>
+                                            <textarea class="form-control" id="blogDescription" name="blogDescription" rows="4" th:text="${blog.getBlogDescription()}"></textarea>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label class="col-form-label">是否发布</label>
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" th:checked="${blog.getPublished() == 1}" id="published" name="published" value="1">
+                                                    <label class="custom-control-label" for="published">发布</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="col-form-label">是否赞赏</label>
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" th:checked="${blog.getCommendable() == 1}" id="commendable" name="commendable" value="1">
+                                                    <label class="custom-control-label" for="commendable">赞赏</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="col-form-label">是否推荐</label>
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" th:checked="${blog.getRecommend() == 1}" checked id="recommend" name="recommend" value="1">
+                                                    <label class="custom-control-label" for="recommend">推荐</label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group" style="text-align: center">
                                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
@@ -133,6 +158,77 @@
             // toolbarIcons : ""
         });
     });
+
+    $('#editBlog').validate({
+        submitHandler: function (form) {
+            edit();
+        }
+    });
+
+    /**
+     * 编辑博客文章
+     */
+    function edit() {
+        const blogId = $("#blogId").val();
+        const blogTitle = $("#blogTitle").val();
+        const creationType = $("#creationType option:selected").val();
+        const typeId = $("#typeId").val();
+        const firstPicture = $("#firstPicture option:selected").text();
+        const blogContent = $("#blogContent").val();
+        const blogDescription = $("#blogDescription").val();
+        let published = 0;
+        let commendable = 0;
+        let recommend = 0;
+        if ($("#published").prop('checked')){
+            published = 1;
+        }
+        if ($("#commendable").prop('checked')){
+            commendable = 1;
+        }
+        if ($("#recommend").prop('checked')){
+            recommend = 1;
+        }
+        const oldBlogTitle = $("#oldBlogTitle").val();
+        const config = {
+            url: '/admin/blog/editBlog',
+            type: 'post',
+            data: {
+                "blogId": blogId,
+                "blogTitle": blogTitle,
+                "creationType": creationType,
+                "typeId": typeId,
+                "firstPicture": firstPicture,
+                "blogContent": blogContent,
+                "blogDescription": blogDescription,
+                "published": published,
+                "commendable": commendable,
+                "recommend": recommend,
+                "oldBlogTitle": oldBlogTitle
+            },
+            success: function (result) {
+                if (result.code === 0) {
+                    toastr.success(result.msg, "", {
+                        positionClass: "toastr toast-top-center",
+                        containerId: "toast-top-center",
+                        showMethod: "slideDown",
+                        hideMethod: "slideUp",
+                        timeOut: 2e3
+                    });
+                    window.location.replace('/admin/blog/list');
+                } else {
+                    toastr.error(result.msg, "", {
+                        positionClass: "toastr toast-top-center",
+                        containerId: "toast-top-center",
+                        showMethod: "slideDown",
+                        hideMethod: "slideUp",
+                        timeOut: 2e3
+                    })
+                }
+            }
+        };
+        console.log(config);
+        $.ajax(config);
+    }
 </script>
 
 </body>

@@ -52,7 +52,7 @@ public class MemoController {
      * @param session 登录信息
      * @return 备忘录新增页面
      */
-    @RequestMapping("/toAdd")
+    @RequestMapping("/add")
     public String toAdd(Model model, HttpSession session){
 //        Long userId = userService.queryByUsername((String) session.getAttribute("username"));
         Long userId = 520L;
@@ -66,7 +66,7 @@ public class MemoController {
      * @return 结果信息
      */
     @ResponseBody
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/addMemo", method = RequestMethod.POST)
     public Result addMemo(Memo memo){
         System.out.println(memo);
         Memo count = memoService.insert(memo);
@@ -82,7 +82,7 @@ public class MemoController {
      * @param model 数据传输
      * @return 备忘录编辑页面
      */
-    @RequestMapping("/toEdit/{id}")
+    @RequestMapping("/edit/{id}")
     public String toEdit(@PathVariable("id") Long id, Model model){
         Memo memo = memoService.queryById(id);
         model.addAttribute("memo", memo);
@@ -95,7 +95,7 @@ public class MemoController {
      * @return 结果信息
      */
     @ResponseBody
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/editMemo", method = RequestMethod.POST)
     public Result editMemo(Memo memo){
         System.out.println(memo);
         Memo count = memoService.update(memo);

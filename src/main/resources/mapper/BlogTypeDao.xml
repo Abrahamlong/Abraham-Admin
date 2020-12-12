@@ -14,6 +14,11 @@
         <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
     </resultMap>
 
+    <resultMap type="com.abraham.vo.BlogTypeVO" id="BlogTypeVOMap">
+        <result property="typeId" column="type_id" jdbcType="INTEGER"/>
+        <result property="typeName" column="type_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <!--根据博客类型ID查询单个-->
     <select id="queryById" resultMap="BlogTypeMap">
         select
@@ -65,6 +70,14 @@
             </if>
         </where>
         order by type_id desc
+    </select>
+
+    <!--查询所有数据(博客后台管理)-->
+    <select id="queryAll" resultMap="BlogTypeVOMap">
+        select
+            type_id, type_name
+        from long_blog.blog_type
+        where  is_delete = 0 and type_status = 1;
     </select>
 
     <!--新增所有列-->

@@ -45,7 +45,7 @@
                                     <div class="card-body">
 
                                         <div class="">
-                                            <a class="btn btn-rounded btn-outline-info mb-2 mr-2" th:href="@{/admin/abraham/memo/toAdd}">新&nbsp;增</a>
+                                            <a class="btn btn-rounded btn-outline-info mb-2 mr-2" th:href="@{/admin/abraham/memo/add}">新&nbsp;增</a>
                                         </div>
 
                                         <div class="table-responsive">
@@ -79,7 +79,7 @@
                                                         <a class="action-icon-success" th:if="${memo.getMemoStatus() == 0}" th:onclick="'updateStatus(' + ${memo.getMemoId()} + ', 0)'">
                                                             <i class="ti-thumb-up"></i>
                                                         </a>
-                                                        <a th:href="@{'/admin/abraham/memo/toEdit/' + ${memo.getMemoId()}}" class="action-icon-primary"> <i class="zmdi zmdi-edit"></i></a>
+                                                        <a th:href="@{'/admin/abraham/memo/edit/' + ${memo.getMemoId()}}" class="action-icon-primary"> <i class="zmdi zmdi-edit"></i></a>
                                                         <a class="action-icon" th:onclick="'remove('+${memo.getMemoId()}+')'"> <i class="zmdi zmdi-delete"></i></a>
                                                     </td>
                                                 </tr>
@@ -148,21 +148,20 @@
                 confirmButtonText: "删除",
                 cancelButtonText: "取消"
             }).then(function(flag) {
-                var config = {
+                flag.value ? $.ajax({
                     url: '/admin/abraham/memo/deleteMemo/' +id,
                     type: "get",
                     success: function (result) {
                         if (result.code === 0) {
-                            flag.value && Swal.fire("删除成功", result.msg, "success").then(function (t) {
-                                // t.value && location.replace("/admin/abraham/memo");
+                            Swal.fire("删除成功", result.msg, "success").then(function (t) {
+                                // t.value && location.replace("/admin/management/types-management");
                                 t.value && window.location.reload();
                             });
                         } else {
-                            flag.value && Swal.fire("删除失败", result.msg, "error")
+                            Swal.fire("删除失败", result.msg, "error")
                         }
                     }
-                };
-                $.ajax(config);
+                }) : t.dismiss === Swal.DismissReason.cancel
             })
         }
 

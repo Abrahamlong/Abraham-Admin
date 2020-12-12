@@ -9,32 +9,25 @@
         <result property="pictureAddress" column="picture_address" jdbcType="VARCHAR"/>
         <result property="friendStatus" column="friend_status" jdbcType="INTEGER"/>
         <result property="createUser" column="create_user" jdbcType="INTEGER"/>
-        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
-        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="VARCHAR"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="VARCHAR"/>
         <result property="deleteFlag" column="is_delete" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="FriendLinkMap">
         select
-          friend_link_id, blog_address, blog_name, picture_address, friend_status, create_user, gmt_create, gmt_modified, is_delete
+            friend_link_id, blog_address, blog_name, picture_address, friend_status, create_user, gmt_create,
+            gmt_modified, is_delete
         from long_blog.friend_link
         where friend_link_id = #{friendLinkId}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="FriendLinkMap">
-        select
-          friend_link_id, blog_address, blog_name, picture_address, friend_status, create_user, gmt_create, gmt_modified, is_delete
-        from long_blog.friend_link
-        limit #{offset}, #{limit}
-    </select>
-
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="FriendLinkMap">
+    <select id="queryAllByCondition" resultMap="FriendLinkMap">
         select
-        friend_link_id, blog_address, blog_name, picture_address, friend_status, create_user, gmt_create, gmt_modified,
-        is_delete
+            friend_link_id, blog_address, blog_name, picture_address, friend_status, create_user, gmt_create, gmt_modified,
+            is_delete
         from long_blog.friend_link
         <where>
             <if test="friendLinkId != null">
@@ -61,40 +54,19 @@
             <if test="gmtModified != null">
                 and gmt_modified = #{gmtModified}
             </if>
-            <if test="isDelete != null">
-                and is_delete = #{isDelete}
+            <if test="true">
+                and is_delete = 0
             </if>
         </where>
+        order by friend_link_id desc
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="friendLinkId" useGeneratedKeys="true">
-        insert into long_blog.friend_link(blog_address, blog_name, picture_address, friend_status, create_user, gmt_create, gmt_modified, is_delete)
-        values (#{blogAddress}, #{blogName}, #{pictureAddress}, #{friendStatus}, #{createUser}, #{gmtCreate}, #{gmtModified}, #{isDelete})
-    </insert>
-
-    <insert id="insertBatch" keyProperty="friendLinkId" useGeneratedKeys="true">
-        insert into long_blog.friend_link(blog_address, blog_name, picture_address, friend_status, create_user,
-        gmt_create, gmt_modified, is_delete)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.blogAddress}, #{entity.blogName}, #{entity.pictureAddress}, #{entity.friendStatus},
-            #{entity.createUser}, #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.isDelete})
-        </foreach>
-    </insert>
-
-    <insert id="insertOrUpdateBatch" keyProperty="friendLinkId" useGeneratedKeys="true">
-        insert into long_blog.friend_link(blog_address, blog_name, picture_address, friend_status, create_user,
-        gmt_create, gmt_modified, is_delete)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.blogAddress}, #{entity.blogName}, #{entity.pictureAddress}, #{entity.friendStatus},
-            #{entity.createUser}, #{entity.gmtCreate}, #{entity.gmtModified}, #{entity.isDelete})
-        </foreach>
-        on duplicate key update
-        blog_address = values(blog_address) , blog_name = values(blog_name) , picture_address = values(picture_address)
-        , friend_status = values(friend_status) , create_user = values(create_user) , gmt_create = values(gmt_create) ,
-        gmt_modified = values(gmt_modified) , is_delete = values(is_delete)
+        insert into long_blog.friend_link(blog_address, blog_name, picture_address, friend_status, create_user, gmt_create,
+            gmt_modified, is_delete)
+        values (#{blogAddress}, #{blogName}, #{pictureAddress}, #{friendStatus}, #{createUser}, #{gmtCreate},
+            #{gmtModified}, #{deleteFlag})
     </insert>
 
     <!--通过主键修改数据-->
@@ -122,16 +94,13 @@
             <if test="gmtModified != null">
                 gmt_modified = #{gmtModified},
             </if>
-            <if test="isDelete != null">
-                is_delete = #{isDelete},
-            </if>
         </set>
         where friend_link_id = #{friendLinkId}
     </update>
 
     <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from long_blog.friend_link where friend_link_id = #{friendLinkId}
-    </delete>
+    <update id="deleteById">
+        update long_blog.friend_link set is_delete = 1 where friend_link_id = #{friendLinkId}
+    </update>
 
 </mapper>

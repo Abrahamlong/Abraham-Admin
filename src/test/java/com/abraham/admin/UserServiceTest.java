@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 
 /**
- * @Description:
+ * @Description: 用户service测试类
  * @author: Long
  * @date Create in 14:44 2020/12/1
  */

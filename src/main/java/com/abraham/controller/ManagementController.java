@@ -31,9 +31,4 @@ public class ManagementController {
         return "admin/coming-soon";
     }
 
-    @RequestMapping("/friend-management")
-    public String friendManagement(){
-        return "admin/management/friend-management";
-    }
-
 }

@@ -30,7 +30,7 @@
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item">管理中心</li>
-                                        <li class="breadcrumb-item"><a th:href="@{/admin/management/types-management}">博客类型</a></li>
+                                        <li class="breadcrumb-item"><a th:href="@{/admin/management/types-management}">类型管理</a></li>
                                         <li class="breadcrumb-item active">编辑</li>
                                     </ol>
                                 </div>
@@ -48,7 +48,7 @@
                                         <h4 class="modal-title">编辑博客类型</h4>
                                         <hr/>
                                     </div>
-                                    <form id="typesAdd" class="forms-sample">
+                                    <form id="typeEdit" class="forms-sample">
                                         <input id="typeId" name="typeId" type="hidden" th:value="${type.getTypeId()}"/>
                                         <input id="oldTypeName" name="oldTypeName" type="hidden" th:value="${type.getTypeName()}"/>
                                         <div class="form-group">
@@ -90,7 +90,7 @@
 </div>
 
 <script>
-    $('#typesAdd').validate({
+    $('#typeEdit').validate({
         submitHandler: function (form) {
             edit();
         }
@@ -110,7 +110,7 @@
             typeStatus = 1;
         }
         $.ajax({
-            url: '/admin/management/types-management/edit',
+            url: '/admin/management/types-management/editType',
             type: 'post',
             data: {
                 "typeId": typeId,

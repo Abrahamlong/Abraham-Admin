@@ -54,3 +54,14 @@
     /*-o-transform:rotate3d(.6,1,.6,45deg);*/
     /*transform:rotate3d(.6,1,.6,45deg);*/
 }
+.form-wight-300{
+    width: 300px;
+}
+
+.form-wight-200{
+    width: 180px;
+}
+
+.left-distance-10{
+    margin-left: 10px;
+}

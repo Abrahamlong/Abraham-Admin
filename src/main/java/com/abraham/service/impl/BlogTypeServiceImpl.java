@@ -4,11 +4,10 @@ import com.abraham.dao.BlogTypeDao;
 import com.abraham.entity.BlogType;
 import com.abraham.service.BlogTypeService;
 import com.abraham.utils.CurrentDateUtils;
+import com.abraham.vo.BlogTypeVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,6 +56,16 @@ public class BlogTypeServiceImpl implements BlogTypeService {
             type.setGmtCreate(type.getGmtCreate().substring(0,10));
         }
         return blogTypes;
+    }
+
+    /**
+     * 查询所有数据，仅返回类型id和类型名称（博客新增使用）
+     *
+     * @return 对象列表
+     */
+    @Override
+    public List<BlogTypeVO> queryAll() {
+        return this.blogTypeDao.queryAll();
     }
 
     /**

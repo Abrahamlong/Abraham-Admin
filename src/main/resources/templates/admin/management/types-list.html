@@ -30,7 +30,7 @@
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
                                             <li class="breadcrumb-item">管理中心</li>
-                                            <li class="breadcrumb-item active"><a th:href="@{/admin/management/types-management}">博客类型</a></li>
+                                            <li class="breadcrumb-item active"><a th:href="@{/admin/management/types-management}">类型管理</a></li>
                                         </ol>
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                                     <div class="card-body">
                                         <!-- 新增按钮 -->
                                         <div class="">
-                                            <a class="btn btn-rounded btn-outline-primary mb-2 mr-2" th:href="@{/admin/management/types-management/toAdd}">新&nbsp;增</a>
+                                            <a class="btn btn-rounded btn-outline-primary mb-2 mr-2" th:href="@{/admin/management/types-management/add}">新&nbsp;增</a>
                                         </div>
                                         <!-- 表格主体 -->
                                         <div class="table-responsive">
@@ -80,7 +80,7 @@
                                                         <a class="action-icon-success" th:if="${type.getTypeStatus() == 0}" th:onclick="'updateStatus(' + ${type.getTypeId()} + ', 1)'">
                                                             <i class="fa fa-check"></i>
                                                         </a>
-                                                        <a th:href="@{'/admin/management/types-management/toEdit/' + ${type.getTypeId()}}" class="action-icon-primary"> <i class="zmdi zmdi-edit"></i></a>
+                                                        <a th:href="@{'/admin/management/types-management/edit/' + ${type.getTypeId()}}" class="action-icon-primary"> <i class="zmdi zmdi-edit"></i></a>
                                                         <a id="deleteType" class="action-icon deleteType" th:onclick="'remove('+${type.getTypeId()}+')'"> <i class="zmdi zmdi-delete"></i></a>
                                                     </td>
                                                 </tr>
@@ -151,22 +151,20 @@
                 confirmButtonText: "删除",
                 cancelButtonText: "取消"
             }).then(function(flag) {
-                var config = {
+                flag.value ? $.ajax({
                     url: '/admin/management/types-management/deleteType/' +id,
                     type: "get",
                     success: function (result) {
                         if (result.code === 0) {
-                            flag.value && Swal.fire("删除成功", result.msg, "success").then(function (t) {
+                            Swal.fire("删除成功", result.msg, "success").then(function (t) {
                                 // t.value && location.replace("/admin/management/types-management");
                                 t.value && window.location.reload();
                             });
                         } else {
-                            flag.value && Swal.fire("删除失败", result.msg, "error")
+                            Swal.fire("删除失败", result.msg, "error")
                         }
                     }
-                };
-                $.ajax(config);
-
+                }) : t.dismiss === Swal.DismissReason.cancel
             })
         }
         /**

@@ -3,6 +3,7 @@ package com.abraham.service.impl;
 import com.abraham.dao.BlogDao;
 import com.abraham.entity.Blog;
 import com.abraham.service.BlogService;
+import com.abraham.utils.CurrentDateUtils;
 import com.abraham.vo.BlogManagementVO;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,29 @@ public class BlogServiceImpl implements BlogService {
      * @return 实例对象
      */
     @Override
-    public Blog queryById(Long blogId) {
+    public BlogManagementVO queryById(Long blogId) {
         return this.blogDao.queryById(blogId);
+    }
+
+    /**
+     * 通过博客标题查询单条数据(后台博客管理)
+     *
+     * @param blogTitle 博客标题
+     * @return 实例对象
+     */
+    public Boolean queryByTitle(String blogTitle) {
+        Blog blog = this.blogDao.queryByTitle(blogTitle);
+        return blog != null;
+    }
+
+    /**
+     * 通过BlogManagementVO实体查询所有数据(后台博客管理)
+     *
+     * @return 对象列表
+     */
+    @Override
+    public List<BlogManagementVO> queryAll() {
+        return this.blogDao.queryAll();
     }
 
     /**
@@ -49,9 +71,15 @@ public class BlogServiceImpl implements BlogService {
      * @return 实例对象
      */
     @Override
-    public Blog insert(Blog blog) {
-        this.blogDao.insert(blog);
-        return blog;
+    public int insert(Blog blog) {
+        blog.setViewsCount(0);
+        blog.setCollectCount(0);
+        blog.setCommentCount(0);
+        blog.setCommendableCount(0);
+        blog.setGmtCreate(new CurrentDateUtils().getCurrentDate());
+        blog.setGmtModified(new CurrentDateUtils().getCurrentDate());
+        blog.setDeleteFlag(0);
+        return this.blogDao.insert(blog);
     }
 
     /**
@@ -61,9 +89,23 @@ public class BlogServiceImpl implements BlogService {
      * @return 实例对象
      */
     @Override
-    public Blog update(Blog blog) {
-        this.blogDao.update(blog);
-        return this.queryById(blog.getBlogId());
+    public int update(Blog blog) {
+        return this.blogDao.update(blog);
+    }
+
+    /**
+     * 根据ID更新博客发布状态
+     *
+     * @param blogId 博客Id
+     * @param published 要更新的发布状态
+     * @return 影响的行数
+     */
+    @Override
+    public int updatePublished(Long blogId, Integer published) {
+        Blog blog = new Blog();
+        blog.setBlogId(blogId);
+        blog.setPublished(published);
+        return this.blogDao.update(blog);
     }
 
     /**
