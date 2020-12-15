@@ -11,11 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/management")
 public class ManagementController {
 
-    @RequestMapping("/gallery-management")
-    public String galleryManagement(){
-        return "admin/management/gallery-management";
-    }
-
     @RequestMapping("/comment-management")
     public String commentManagement(){
         return "admin/management/comment-management";

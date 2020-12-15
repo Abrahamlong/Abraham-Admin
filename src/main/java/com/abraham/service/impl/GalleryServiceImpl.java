@@ -3,6 +3,7 @@ package com.abraham.service.impl;
 import com.abraham.dao.GalleryDao;
 import com.abraham.entity.Gallery;
 import com.abraham.service.GalleryService;
+import com.abraham.utils.CurrentDateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * 图库表(Gallery)表服务实现类
  *
- * @author makejava
+ * @author Long
  * @since 2020-11-27 16:55:27
  */
 @Service("galleryService")
@@ -31,15 +32,14 @@ public class GalleryServiceImpl implements GalleryService {
     }
 
     /**
-     * 查询多条数据
+     * 通过实体作为筛选条件查询所有
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param gallery 实体对象
      * @return 对象列表
      */
     @Override
-    public List<Gallery> queryAllByLimit(int offset, int limit) {
-        return this.galleryDao.queryAllByLimit(offset, limit);
+    public List<Gallery> queryAllByCondition(Gallery gallery) {
+        return this.galleryDao.queryAllByCondition(gallery);
     }
 
     /**
@@ -49,9 +49,11 @@ public class GalleryServiceImpl implements GalleryService {
      * @return 实例对象
      */
     @Override
-    public Gallery insert(Gallery gallery) {
-        this.galleryDao.insert(gallery);
-        return gallery;
+    public int insert(Gallery gallery) {
+        gallery.setGmtCreate(new CurrentDateUtils().getCurrentDate());
+        gallery.setGmtModified(new CurrentDateUtils().getCurrentDate());
+        gallery.setDeleteFlag(0);
+        return this.galleryDao.insert(gallery);
     }
 
     /**
@@ -62,6 +64,7 @@ public class GalleryServiceImpl implements GalleryService {
      */
     @Override
     public Gallery update(Gallery gallery) {
+        gallery.setGmtModified(new CurrentDateUtils().getCurrentDate());
         this.galleryDao.update(gallery);
         return this.queryById(gallery.getPictureId());
     }

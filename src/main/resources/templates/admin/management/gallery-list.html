@@ -30,7 +30,7 @@
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item">管理中心</li>
-                                        <li class="breadcrumb-item active"><a th:href="@{/admin/management/friendLink}">友链管理</a></li>
+                                        <li class="breadcrumb-item active"><a th:href="@{/admin/management/gallery}">图库管理</a></li>
                                     </ol>
                                 </div>
                             </div>
@@ -44,8 +44,8 @@
                                 <div class="card-body">
                                     <!-- 新增按钮 -->
                                     <div class="">
-                                        <a class="btn btn-rounded btn-outline-primary mb-2 mr-2" th:href="@{/admin/management/friendLink/add}">新&nbsp;增</a>
-                                        <a class="btn btn-rounded btn-outline-info mb-2 mr-2" th:href="@{/admin/management/friendLink/show}">展&nbsp;示</a>
+                                        <a class="btn btn-rounded btn-outline-primary mb-2 mr-2" th:href="@{/admin/management/gallery/add}">新&nbsp;增</a>
+                                        <a class="btn btn-rounded btn-outline-info mb-2 mr-2" th:href="@{/admin/management/gallery/show}">展&nbsp;示</a>
                                     </div>
                                     <!-- 表格主体 -->
                                     <div class="table-responsive">
@@ -53,36 +53,39 @@
                                             <thead class="primary-color">
                                             <tr>
                                                 <th class="text-white" >ID</th>
-                                                <th class="text-white" >博客地址</th>
-                                                <th class="text-white" >博客名称</th>
-                                                <th class="text-white" >图片链接</th>
-                                                <th class="text-white" >创建时间</th>
-                                                <th class="text-white" >状态</th>
+                                                <th class="text-white" >图片地址</th>
+                                                <th class="text-white" >图片名称</th>
+                                                <th class="text-white" >图片描述</th>
+                                                <th class="text-white" >被使用数</th>
+                                                <th class="text-white" >图片类型</th>
                                                 <th class="text-white" >操作</th>
                                             </tr>
                                             </thead>
                                             <tbody class="">
-                                            <tr th:each="friendLink : ${friendLinks}">
-                                                <td th:text="${friendLink.getFriendLinkId()}"></td>
-                                                <td th:text="${friendLink.getBlogAddress()}"></td>
-                                                <td th:text="${friendLink.getBlogName()}"></td>
-                                                <td th:text="${friendLink.getPictureAddress()}"></td>
-                                                <td th:text="${friendLink.getGmtCreate()}"></td>
-                                                <td th:if="${friendLink.getFriendStatus() == 0}">
-                                                    <span class="badge badge-danger badge-pill">未启用</span>
+                                            <tr th:each="gallery : ${galleryList}">
+                                                <td th:text="${gallery.getPictureId()}"></td>
+                                                <td th:text="${gallery.getPictureAddress()}"></td>
+                                                <td th:text="${gallery.getPictureName()}"></td>
+                                                <td th:text="${gallery.getPictureDescription()}"></td>
+                                                <td th:text="${gallery.getUseCount()}"></td>
+                                                <td th:if="${gallery.getPictureType() == 0}">
+                                                    <span class="badge badge-primary badge-pill">相册</span>
                                                 </td>
-                                                <td th:if="${friendLink.getFriendStatus() == 1}">
-                                                    <span class="badge badge-info badge-pill">已启用</span>
+                                                <td th:if="${gallery.getPictureType() == 1}">
+                                                    <span class="badge badge-success badge-pill">博客</span>
+                                                </td>
+                                                <td th:if="${gallery.getPictureType() == 2}">
+                                                    <span class="badge badge-info badge-pill">背景</span>
+                                                </td>
+                                                <td th:if="${gallery.getPictureType() == 3}">
+                                                    <span class="badge badge-warning badge-pill">头像</span>
+                                                </td>
+                                                <td th:if="${gallery.getPictureType() == 4}">
+                                                    <span class="badge badge-dark badge-pill">友链</span>
                                                 </td>
                                                 <td>
-                                                    <a class="action-icon" th:if="${friendLink.getFriendStatus() == 1}" th:onclick="'updateStatus(' + ${friendLink.getFriendLinkId()} + ', 0)'">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                                    <a class="action-icon-success" th:if="${friendLink.getFriendStatus() == 0}" th:onclick="'updateStatus(' + ${friendLink.getFriendLinkId()} + ', 1)'">
-                                                        <i class="fa fa-check"></i>
-                                                    </a>
-                                                    <a th:href="@{'/admin/management/friendLink/edit/' + ${friendLink.getFriendLinkId()}}" class="action-icon-primary"> <i class="zmdi zmdi-edit"></i></a>
-                                                    <a id="deleteType" class="action-icon deleteType" th:onclick="'remove('+${friendLink.getFriendLinkId()}+')'"> <i class="zmdi zmdi-delete"></i></a>
+                                                    <a th:href="@{'/admin/management/gallery/edit/' + ${gallery.getPictureId()}}" class="action-icon-primary"> <i class="zmdi zmdi-edit"></i></a>
+                                                    <a id="deleteType" class="action-icon deleteType" th:onclick="'remove('+${gallery.getPictureId()}+')'"> <i class="zmdi zmdi-delete"></i></a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -138,8 +141,8 @@
 
 <script>
     /**
-     * 删除友链的单条记录
-     * @param id 友链Id
+     * 删除图库的单条记录
+     * @param id 图片Id
      */
     function remove(id){
         Swal.fire({
@@ -153,7 +156,7 @@
             cancelButtonText: "取消"
         }).then(function(flag) {
             flag.value ? $.ajax({
-                url: '/admin/management/friendLink/deleteFriendLink/' +id,
+                url: '/admin/management/gallery/deleteGallery/' +id,
                 type: "get",
                 success: function (result) {
                     if (result.code === 0) {
@@ -166,41 +169,6 @@
                     }
                 }
             }) : flag.dismiss === Swal.DismissReason.cancel
-        })
-    }
-    /**
-     * 更新友链状态
-     * @param friendLinkId 友链Id
-     * @param status 友链状态值
-     */
-    function updateStatus(friendLinkId, status) {
-        $.ajax({
-            url: '/admin/management/friendLink/updateStatus',
-            type: 'post',
-            data: {
-                "friendLinkId": friendLinkId,
-                "status": status
-            },
-            success: function (result) {
-                if (result.code === 0) {
-                    toastr.success(result.msg, "", {
-                        positionClass: "toastr toast-top-center",
-                        containerId: "toast-top-center",
-                        showMethod: "slideDown",
-                        hideMethod: "slideUp",
-                        timeOut: 2e3
-                    });
-                    window.location.replace('/admin/management/friendLink');
-                } else {
-                    toastr.error(result.msg, "", {
-                        positionClass: "toastr toast-top-center",
-                        containerId: "toast-top-center",
-                        showMethod: "slideDown",
-                        hideMethod: "slideUp",
-                        timeOut: 2e3
-                    })
-                }
-            }
         })
     }
 </script>

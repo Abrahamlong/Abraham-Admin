@@ -30,43 +30,51 @@
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item">管理中心</li>
-                                        <li class="breadcrumb-item"><a th:href="@{/admin/management/friendLink}">友链管理</a></li>
-                                        <li class="breadcrumb-item active">编辑</li>
+                                        <li class="breadcrumb-item"><a th:href="@{/admin/management/gallery}">图库管理</a></li>
+                                        <li class="breadcrumb-item active">新增</li>
                                     </ol>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- end page title -->
-
-                    <!-- 博客类型编辑 -->
+                    <!-- 博客类型新增 -->
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="text-center" style="margin-top: 20px">
-                                        <h4 class="modal-title">编辑博客类型</h4>
+                                        <h4 class="modal-title">新增图片</h4>
                                         <hr/>
                                     </div>
-                                    <form id="friendLinkEdit" class="forms-sample" method="post">
-                                        <input id="friendLinkId" name="friendLinkId" type="hidden" th:value="${friendLink.getFriendLinkId()}"/>
-                                        <div class="form-group">
-                                            <label for="blogAddress">博客地址</label>
-                                            <input id="blogAddress" class="form-control" name="blogAddress" th:value="${friendLink.getBlogAddress()}" minlength="2" type="text" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="blogName">博客名称</label>
-                                            <input id="blogName" class="form-control" type="text" name="blogName" th:value="${friendLink.getBlogName()}" required>
-                                        </div>
+                                    <form id="galleryAdd" class="forms-sample" method="post">
                                         <div class="form-group">
                                             <label for="pictureAddress">图片地址</label>
-                                            <input id="pictureAddress" class="form-control" type="text" name="pictureAddress" th:value="${friendLink.getPictureAddress()}" required>
+                                            <input id="pictureAddress" class="form-control" name="pictureAddress" minlength="2" type="text" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pictureName">图片名称</label>
+                                            <input id="pictureName" class="form-control" type="text" name="pictureName" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pictureDescription">图片描述</label>
+                                            <input id="pictureDescription" class="form-control" type="text" name="pictureDescription" required>
                                         </div>
                                         <div class="form-group form-line">
-                                            <label class="col-form-label">友链状态</label>
-                                            <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="friendStatus" name="friendStatus" th:checked="${friendLink.getFriendStatus() == 1}" value="1">
-                                                <label class="custom-control-label" for="friendStatus">开启</label>
+                                            <label class="col-form-label" for="useCount">被使用数</label>
+                                            <input id="useCount" class="form-control" type="text" name="useCount" required>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-5">
+                                                <label for="pictureType" class="col-form-label">图片类型</label>
+                                                <select id="pictureType" name="pictureType" class="form-control">
+                                                    <option value="-1">请选择图片类型</option>
+                                                    <option value="0">相册</option>
+                                                    <option value="1">博客</option>
+                                                    <option value="2">背景</option>
+                                                    <option value="3">头像</option>
+                                                    <option value="4">友链</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group text-center">
@@ -78,7 +86,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end row-->
+
                 </div>
             </div>
 
@@ -89,34 +97,32 @@
 </div>
 
 <script>
-    $('#friendLinkEdit').validate({
+    $('#galleryAdd').validate({
         submitHandler: function (form) {
-            edit();
+            add();
         }
     });
 
     /**
-     * 提交编辑友链
+     * 提交新增图片
      */
-    function edit() {
-        const friendLinkId = $("#friendLinkId").val();
-        const blogAddress = $("#blogAddress").val();
-        const blogName = $("#blogName").val();
+    function add() {
         const pictureAddress = $("#pictureAddress").val();
-        let friendStatus = 0;
-        if ($("#friendStatus").prop('checked')){
-            friendStatus = 1;
-        }
+        const pictureName = $("#pictureName").val();
+        const pictureDescription = $("#pictureDescription").val();
+        const useCount = $("#useCount").val();
+        const pictureType = $("#pictureType option:selected").val();
         $.ajax({
-            url: '/admin/management/friendLink/editFriendLink',
+            url: '/admin/management/gallery/addGallery',
             type: 'post',
             data: {
-                "friendLinkId": friendLinkId,
-                "blogAddress": blogAddress,
-                "blogName": blogName,
                 "pictureAddress": pictureAddress,
-                "friendStatus": friendStatus
+                "pictureName": pictureName,
+                "pictureDescription": pictureDescription,
+                "useCount": useCount,
+                "pictureType": pictureType
             },
+            dataType: "json",
             success: function (result) {
                 if (result.code === 0) {
                     toastr.success(result.msg, "", {
@@ -126,7 +132,7 @@
                         hideMethod: "slideUp",
                         timeOut: 2e3
                     });
-                    window.location.replace('/admin/management/friendLink');
+                    window.location.replace('/admin/management/gallery');
                 } else {
                     toastr.error(result.msg, "", {
                         positionClass: "toastr toast-top-center",
@@ -141,10 +147,10 @@
     }
 
     /**
-     * 取消窗口，重定向到友链列表页面
+     * 取消窗口，重定向到图库管理列表页面
      */
     function cancel() {
-        window.location.replace('/admin/management/friendLink');
+        window.location.replace('/admin/management/gallery');
     }
 </script>
 </body>

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 图库表(Gallery)表服务接口
  *
- * @author makejava
+ * @author Long
  * @since 2020-11-27 16:55:27
  */
 public interface GalleryService {
@@ -21,13 +21,12 @@ public interface GalleryService {
     Gallery queryById(Long pictureId);
 
     /**
-     * 查询多条数据
+     * 通过实体作为筛选条件查询所有
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param gallery 实体对象
      * @return 对象列表
      */
-    List<Gallery> queryAllByLimit(int offset, int limit);
+    List<Gallery> queryAllByCondition(Gallery gallery);
 
     /**
      * 新增数据
@@ -35,7 +34,7 @@ public interface GalleryService {
      * @param gallery 实例对象
      * @return 实例对象
      */
-    Gallery insert(Gallery gallery);
+    int insert(Gallery gallery);
 
     /**
      * 修改数据

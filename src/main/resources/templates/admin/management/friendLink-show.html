@@ -30,8 +30,9 @@
                                 <div class="page-title-box d-flex justify-content-between mb-30">
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dotan</a></li>
-                                            <li class="breadcrumb-item active">Contact</li>
+                                            <li class="breadcrumb-item">管理中心</li>
+                                            <li class="breadcrumb-item"><a th:href="@{/admin/management/friendLink}">友链管理</a></li>
+                                            <li class="breadcrumb-item active">展示</li>
                                         </ol>
                                     </div>
                                 </div>
@@ -67,70 +68,7 @@
                                     <div class="card-body">
                                         <div class="d-flex">
                                             <div>
-                                                <div class="user-img mr-3"><img th:src="@{/img/member-img/mail-5.jpg}" alt="user" class="border-radius-50 mb-3"></div>
-                                            </div>
-                                            <div>
-                                                <h4 class="mb-1 font-18">Johnathan Doe</h4>
-                                                <p class="mb-10">Web Designer</p>
-                                                <div class="contact-address">
-                                                    <p class="mb-2">Add: 795 Folsom Ave, Suite 600 San Francisco, <br>CADGE 94107</p>
-                                                    <p class="mb-0">Phone: (123) 456-7890</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--  Single Cobntact Area -->
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <div>
-                                                <div class="user-img mr-3"><img th:src="@{/img/member-img/mail-6.jpg}" alt="user" class="border-radius-50 mb-3"></div>
-                                            </div>
-                                            <div>
-                                                <h4 class="mb-1 font-18">Johnathan Doe</h4>
-                                                <p class="mb-10">Web Designer</p>
-                                                <div class="contact-address">
-                                                    <p class="mb-2">Add: 795 Folsom Ave, Suite 600 San Francisco, <br>CADGE 94107</p>
-                                                    <p class="mb-0">Phone: (123) 456-7890</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--  Single Cobntact Area -->
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <div>
-                                                <div class="user-img mr-3"><img th:src="@{/img/member-img/mail-2.jpg}" alt="user" class="border-radius-50 mb-3"></div>
-                                            </div>
-                                            <div>
-                                                <h4 class="mb-1 font-18">Johnathan Doe</h4>
-                                                <p class="mb-10">Web Designer</p>
-                                                <div class="contact-address">
-                                                    <p class="mb-2">Add: 795 Folsom Ave, Suite 600 San Francisco, <br>CADGE 94107</p>
-                                                    <p class="mb-0">Phone: (123) 456-7890</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--  Single Cobntact Area -->
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <div>
-                                                <div class="user-img mr-3"><img th:src="@{/img/member-img/mail-4.jpg}" alt="user" class="border-radius-50 mb-3"></div>
+                                                <div class="user-img mr-3"><img th:src="@{${imgLink}}" alt="user" class="border-radius-50 mb-3"></div>
                                             </div>
                                             <div>
                                                 <h4 class="mb-1 font-18">Johnathan Doe</h4>
