@@ -8,11 +8,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2020/11/10
  */
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("")
 public class IndexController {
 
     @RequestMapping("/index")
     public String index(){
-        return "admin/index";
+        return "index";
     }
+
+    @RequestMapping("/about-me")
+    public String about(){
+        return "front-desk/about-me";
+    }
+
+    @RequestMapping("/blog-type")
+    public String type(){
+        return "front-desk/blog-type";
+    }
+
+    @RequestMapping("/message")
+    public String message(){
+        return "front-desk/message-board";
+    }
+
+    @RequestMapping("/friend-link")
+    public String friendLink(){
+        return "front-desk/friend-link";
+    }
+
 }
